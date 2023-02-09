@@ -2,6 +2,9 @@
 #include "ui_mesurement_height.h"
 #include <stdio.h>
 
+
+#include "checkcamerainstallation.h"
+
 using namespace cv;
 using namespace std;
 
@@ -38,14 +41,49 @@ mesurement_height::~mesurement_height()
 void mesurement_height::update_window()
 {
     cap >> frame;
-
     cv::cvtColor(frame, frame, cv::COLOR_BGR2RGB);
 
-    cv::resize(frame, resize_frame, cv::Size(960, 540));
+    frame.copyTo(image_input);
+    checkCameraInstallation(mesurement_height::image_input, &value_roll_inPixel);
+//    cout << value_roll_inPixel << endl;
 
-    qt_image = QImage((const unsigned char*) (resize_frame.data), resize_frame.cols, resize_frame.rows, QImage::Format_RGB888);
+    if (value_roll_inPixel != 99)
+    {
+//        cout << value_roll_inPixel << endl;
+        ui->textEdit_value->setText(QString::number(value_roll_inPixel));
+    }
+    else
+    {
+        ui->textEdit_value->setText("err");
+    }
+
+    cv::resize(image_input, frame_display, cv::Size(960, 540));
+
+    qt_image = QImage((const unsigned char*) (frame_display.data), frame_display.cols, frame_display.rows, QImage::Format_RGB888);
     ui->label_image->setPixmap(QPixmap::fromImage(qt_image));
 
+    qt_image_mini_1 = QImage((const unsigned char*) (mesurement_height::frame_display_mini_1.data), MINI_IMG_W, MINI_IMG_H, QImage::Format_RGB888);
+    ui->label_image_mini_1->setPixmap(QPixmap::fromImage(qt_image_mini_1));
+
+    qt_image_mini_2 = QImage((const unsigned char*) (mesurement_height::frame_display_mini_2.data), MINI_IMG_W, MINI_IMG_H, QImage::Format_RGB888);
+    ui->label_image_mini_2->setPixmap(QPixmap::fromImage(qt_image_mini_2));
+
+}
+
+void mesurement_height::on_pushButton_capture_1_clicked(bool capture_checked_1)
+{
+    cv::resize(frame, frame_display_mini_1, cv::Size(MINI_IMG_W, MINI_IMG_H));
+//    mesurement_height::frame.copyTo(mesurement_height::frame_display_mini_1);
+//    frame_display_mini_1, frame_display_mini_2
+//    cv::imshow("test", mesurement_height::frame);
+//    cout << "teeeeesstt 1111" <<endl;
+
+}
+
+void mesurement_height::on_pushButton_capture_2_clicked(bool capture_checked_2)
+{
+    cv::resize(frame, frame_display_mini_2, cv::Size(MINI_IMG_W, MINI_IMG_H));
+//    cout << "teeeeesstt 2222" <<endl;
 }
 
 vector<cv::Point2f> get2DPointsinChessboard(Mat InputImg, float *avgCellPixelSize, float *Gap_Y,float *Gap_X,Point2i ChessboardSize)

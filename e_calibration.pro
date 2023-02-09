@@ -30,12 +30,16 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         measurement_vehicle.cpp \
-        mesurement_height.cpp
+        mesurement_height.cpp \
+    checkcamerainstallation.cpp
+        checkcamerainstallation.cpp
 
 HEADERS += \
         mainwindow.h \
         measurement_vehicle.h \
-        mesurement_height.h
+        mesurement_height.h \
+    checkcamerainstallation.h
+        checkcamerainstallation.h
 
 FORMS += \
         mainwindow.ui \
