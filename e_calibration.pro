@@ -29,22 +29,25 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        measurement_vehicle.cpp \
-        mesurement_height.cpp \
-    checkcamerainstallation.cpp
+    checkcamerainstallation.cpp \
+    cameraposeestimation.cpp \
+    captureimg.cpp \
+    parameterinput.cpp
         checkcamerainstallation.cpp
 
 HEADERS += \
         mainwindow.h \
-        measurement_vehicle.h \
-        mesurement_height.h \
-    checkcamerainstallation.h
+    checkcamerainstallation.h \
+    cameraposeestimation.h \
+    parameterinput.h \
+    captureimg.h
         checkcamerainstallation.h
 
 FORMS += \
         mainwindow.ui \
-        measurement_vehicle.ui \
-        mesurement_height.ui
+    cameraposeestimation.ui \
+    captureimg.ui \
+    parameterinput.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

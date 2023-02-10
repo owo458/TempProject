@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mesurement_height</class>
- <widget class="QWidget" name="mesurement_height">
+ <class>CaptureImg</class>
+ <widget class="QWidget" name="CaptureImg">
   <property name="geometry">
    <rect>
     <x>0</x>

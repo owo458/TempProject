@@ -1,98 +1,24 @@
-#include "mesurement_height.h"
-#include "ui_mesurement_height.h"
+#include "cameraposeestimation.h"
+#include "ui_cameraposeestimation.h"
+#include <opencv2/opencv.hpp>
 #include <stdio.h>
-
-
-#include "checkcamerainstallation.h"
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/core/core.hpp>
+#include "captureimg.h"
 
 #define CAMERA_LOCATION_X (0)
 
 using namespace cv;
 using namespace std;
 
-mesurement_height::mesurement_height(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::mesurement_height)
-{
-    ui->setupUi(this);
+extern float a;
+extern string str1;
+extern string str2;
+extern string str3;
 
-    timer = new QTimer(this);
-
-    cap.open(0);
-
-    if(!cap.isOpened())
-    {
-        cout << "camera is not open" << endl;
-    }
-    else
-    {
-        cout << "camera is open" << endl;
-    }
-
-    connect(timer, &QTimer::timeout, this, &mesurement_height::update_window);
-            timer->start(20);
-}
-
-mesurement_height::~mesurement_height()
-{
-    disconnect(timer, &QTimer::timeout, this, &mesurement_height::update_window);
-    cap.release();
-    delete ui;
-}
-
-void mesurement_height::update_window()
-{
-    cap >> frame;
-    cv::cvtColor(frame, frame, cv::COLOR_BGR2RGB);
-
-    frame.copyTo(image_input);
-    checkCameraInstallation(mesurement_height::image_input, &value_roll_inPixel);
-//    cout << value_roll_inPixel << endl;
-
-    if (value_roll_inPixel != 99)
-    {
-//        cout << value_roll_inPixel << endl;
-        ui->textEdit_value->setText(QString::number(value_roll_inPixel));
-    }
-    else
-    {
-        ui->textEdit_value->setText("err");
-    }
-
-    cv::resize(image_input, frame_display, cv::Size(960, 540));
-
-    qt_image = QImage((const unsigned char*) (frame_display.data), frame_display.cols, frame_display.rows, QImage::Format_RGB888);
-    ui->label_image->setPixmap(QPixmap::fromImage(qt_image));
-
-    qt_image_mini_1 = QImage((const unsigned char*) (mesurement_height::frame_display_mini_1.data), MINI_IMG_W, MINI_IMG_H, QImage::Format_RGB888);
-    ui->label_image_mini_1->setPixmap(QPixmap::fromImage(qt_image_mini_1));
-
-    qt_image_mini_2 = QImage((const unsigned char*) (mesurement_height::frame_display_mini_2.data), MINI_IMG_W, MINI_IMG_H, QImage::Format_RGB888);
-    ui->label_image_mini_2->setPixmap(QPixmap::fromImage(qt_image_mini_2));
-
-
-}
-
-void mesurement_height::on_pushButton_capture_1_clicked(bool capture_checked_1)
-{
-    mesurement_height::frame.copyTo(mesurement_height::tmpFrame_1);
-//    corners_1 = checkCameraInstallation::findChessboard(mesurement_height::tmpFrame_1, mesurement_height::checker_size);
-//    cout << corners_1.size() << endl;
-
-    cv::resize(frame, frame_display_mini_1, cv::Size(MINI_IMG_W, MINI_IMG_H));
-
-//    frame_display_mini_1, frame_display_mini_2
-//    cv::imshow("test", mesurement_height::frame);
-//    cout << "teeeeesstt 1111" <<endl;
-
-}
-
-void mesurement_height::on_pushButton_capture_2_clicked(bool capture_checked_2)
-{
-    cv::resize(frame, frame_display_mini_2, cv::Size(MINI_IMG_W, MINI_IMG_H));
-    mesurement_height::frame.copyTo(mesurement_height::tmpFrame_2);
-//    cout << "teeeeesstt 2222" <<endl;
-}
+extern Mat CameraPoseCapture_1;
+extern Mat CameraPoseCapture_2;
 
 vector<cv::Point2f> get2DPointsinChessboard(Mat InputImg, float *avgCellPixelSize, float *Gap_Y,float *Gap_X,Point2i ChessboardSize)
 {
@@ -103,12 +29,10 @@ vector<cv::Point2f> get2DPointsinChessboard(Mat InputImg, float *avgCellPixelSiz
 
     vector<cv::Point2f> allCorner_pts;
     vector<cv::Point2f> chessboardCorner_pts;
-
     cv::findChessboardCorners(grayImg, cv::Size(ChessboardSize.x - 1, ChessboardSize.y - 1), allCorner_pts);
     //cout << "CornerPoint1 : " << allCorner_pts <<endl;
 
     cv::TermCriteria criteria(TermCriteria::EPS + TermCriteria::COUNT,100,0.001);
-
     // findChessboardCorners에서 찾은 allCorner_pts에 저장된 픽셀들이 가리키는 위치를 더 정확하게 보정해주는 함수
     cv::cornerSubPix(grayImg, allCorner_pts, cv::Size(11, 11), cv::Size(-1, -1), criteria);
     //cout << "CornerPoint2 : " << allCorner_pts <<endl;
@@ -134,6 +58,8 @@ vector<cv::Point2f> get2DPointsinChessboard(Mat InputImg, float *avgCellPixelSiz
             AllcellSize.push_back(abs(allCorner_pts[i].y - allCorner_pts[i - (ChessboardSize.x-1)].y));
         }
     }
+
+
 
     //printf("AllcellSizeCount : %d\n",(int)AllcellSize.size());
 
@@ -289,7 +215,20 @@ void print_matrix(cv::Mat Matrix, int rows, int columns)
     printf("======================================================================================\n\n");
 }
 
-void drawReprojectionPoint(Mat image, Mat* R, Mat* T, Mat* cameraIntrinsicParameter, Mat* cameraDistortionCoefficient, float distance)
+String str_matrix(cv::Mat Matrix, int rows, int columns)
+{
+    String str;
+    for (int row=0; row<rows; row++) {
+        for (int column=0; column < columns; column++) {
+            str+=to_string(Matrix.at<double>(row,column)) + "  ";
+        }
+        str+="\n";
+    }
+
+    return str;
+}
+
+void drawReprojectionPoint(Mat* image, Mat* R, Mat* T, Mat* cameraIntrinsicParameter, Mat* cameraDistortionCoefficient, float distance)
 {
     vector<Point3f> ReprojectionAllPoint3D;
     vector<int> Layer;
@@ -319,11 +258,11 @@ void drawReprojectionPoint(Mat image, Mat* R, Mat* T, Mat* cameraIntrinsicParame
     Scalar Colorman = Scalar(255,0,255);
     for(int i = 0; i <int(ReprojectionAllPoint2D.size()); i++)
     {
-        circle(image,ReprojectionAllPoint2D[i],2,Colorman,2);
+        circle(*image,ReprojectionAllPoint2D[i],2,Colorman,2);
 
         if ((Layer[k] <= i) && (i < Layer[k+1]-1))
         {
-            circle(image,ReprojectionAllPoint2D[i],2,Colorman,2);
+            circle(*image,ReprojectionAllPoint2D[i],2,Colorman,2);
         }
         else
         {
@@ -342,10 +281,7 @@ void drawReprojectionPoint(Mat image, Mat* R, Mat* T, Mat* cameraIntrinsicParame
             }
         }
     }
-    char ch[255];
-    Mat resizeResult;
-    resize(image,resizeResult,Size(1920/2,1080/2));
-    imshow("Draw Reprojection Point Img",resizeResult);
+
 }
 
 
@@ -376,24 +312,30 @@ void drawAxis(Mat image, Mat* R, Mat* T, Mat* cameraIntrinsicParameter, Mat* cam
     // imshow("draw axis",resizeResult);
     // imwrite("draw axis.png",resizeResult);
 }
-
-void mesurement_height::on_pushButton_2_clicked()
+CameraPoseEstimation::CameraPoseEstimation(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::CameraPoseEstimation)
 {
-    disconnect(timer, &QTimer::timeout, this, &mesurement_height::update_window);
-    cap.release();
-    delete ui;
+    ui->setupUi(this);
+
     cout << "Camera Off" << endl;
+    float CarWidth = stof(str1);
+    float CameraHeight = stof(str2);
+    float CameraToBumper = stof(str3);
+    cout << "CarWidth :" << CarWidth <<"m"<< endl;
+    cout << "CameraHeight :" << CameraHeight <<"m"<< endl;
+    cout << "CameraToBumper :" << CameraToBumper <<"m"<< endl;
     Mat rawImg = imread("/home/server/e_calibration/3m.png");
+    //Mat rawImg = CameraPoseCapture_1;
     Mat PointDetectionImg;
+    Mat resize_PointDetectionImg;
 
     rawImg.copyTo(PointDetectionImg);
-
     float avgCellPixelSizeInChessboard = 0.0;
     float CameraCenterAndChessboardCenterGap_y = 0.0;
     float CameraCenterAndChessboardCenterGap_x = 0.0;
 
     Point2i ChessboardSize = {10,11};
-
     vector<Point2f> corner2DImgPoint;
     vector<Point3f> corner3DImgPoint;
 
@@ -401,7 +343,6 @@ void mesurement_height::on_pushButton_2_clicked()
     Mat cameraIntrinsicParameter(3,3,CV_64FC1,A_data);
     double B_data[5] = {-0.449579,0.185105,0.000366,-0.000990,-0.077038};
     Mat cameraDistortionCoefficient(5,1,CV_64FC1,B_data);
-
     printf("%s[2D Point : PixelCoordinates]%s\n","\033[33m","\033[39m");
     printf("======================================================================================\n");
     corner2DImgPoint = get2DPointsinChessboard(PointDetectionImg, &avgCellPixelSizeInChessboard, &CameraCenterAndChessboardCenterGap_y,&CameraCenterAndChessboardCenterGap_x,ChessboardSize);
@@ -415,8 +356,19 @@ void mesurement_height::on_pushButton_2_clicked()
     float chessboardCellSize = 70.0;
     corner3DImgPoint = get3DPointsinChessboard(PointDetectionImg, TargetDistance, corner2DImgPoint, avgCellPixelSizeInChessboard, CameraCenterAndChessboardCenterGap_y,CameraCenterAndChessboardCenterGap_x,chessboardCellSize);
     printf("======================================================================================\n\n");
-    imshow("PointDetectionImg",PointDetectionImg);
 
+    /*************************/
+    //Qimg_PointDetection
+    //cv::imshow("test",tmpFrame_1);
+    //cv::waitKey(0);
+    cv::resize(PointDetectionImg,resize_PointDetectionImg,Size(PointDetectionImg.cols/3,PointDetectionImg.rows/3));
+    cvtColor(resize_PointDetectionImg,resize_PointDetectionImg,COLOR_BGR2RGB);
+
+    QImage qt_PointImg;
+    qt_PointImg = QImage((const unsigned char*) (resize_PointDetectionImg.data), resize_PointDetectionImg.cols, resize_PointDetectionImg.rows, QImage::Format_RGB888);
+    ui->PointImg->setPixmap(QPixmap::fromImage(qt_PointImg));
+
+    /*************************/
     // RTMatrix----------------------------------------------------------------------------------------------------------------------
     Mat R(3, 3, CV_64FC1);
     Mat R_inv(3,3,CV_64FC1);
@@ -437,6 +389,13 @@ void mesurement_height::on_pushButton_2_clicked()
     R_inv = R.inv();
     T = tvec;
 
+
+    QString QS_RMatrix = QString::fromStdString(str_matrix(R,3,3));
+    ui->R_Matrix_text->setText(QS_RMatrix);
+
+    QString QS_TMatrix = QString::fromStdString(str_matrix(T,3,1));
+    ui->T_Matrix_text->setText(QS_TMatrix);
+
     /* 앞에서 지정한 World좌표의 원점과 Camera의 World좌표변환을 위한 R|T 행렬*/
     printf("%s[Rotation Matrix]%s\n","\033[33m","\033[39m");
     print_matrix(R, R.rows, R.cols);
@@ -449,7 +408,19 @@ void mesurement_height::on_pushButton_2_clicked()
     drawAxis(PointDetectionImg,&R,&T,&cameraIntrinsicParameter,&cameraDistortionCoefficient);
 
     /* ReprojectionPoint Draw*/
-    drawReprojectionPoint(PointDetectionImg,&R,&T,&cameraIntrinsicParameter,&cameraDistortionCoefficient,TargetDistance);
+    drawReprojectionPoint(&PointDetectionImg,&R,&T,&cameraIntrinsicParameter,&cameraDistortionCoefficient,TargetDistance);
+
+    /*************************/
+    //Qimg_DrawReprojectionImg
+    Mat resize_ReprojectionImg;
+    cv::resize(PointDetectionImg,resize_ReprojectionImg,Size(PointDetectionImg.cols/3,PointDetectionImg.rows/3));
+    cvtColor(resize_ReprojectionImg,resize_ReprojectionImg,COLOR_BGR2RGB);
+
+    QImage qt_ReprojectionImg;
+    qt_ReprojectionImg = QImage((const unsigned char*) (resize_ReprojectionImg.data), resize_ReprojectionImg.cols, resize_ReprojectionImg.rows, QImage::Format_RGB888);
+    ui->ReProjectionImg->setPixmap(QPixmap::fromImage(qt_ReprojectionImg));
+
+    /*************************/
 
     /* Reprojection using R and T vector */
 
@@ -477,10 +448,25 @@ void mesurement_height::on_pushButton_2_clicked()
 
     normPixelError = norm(corner2DImgPoint, reProjectionPoint, NORM_L2) / (double)reProjectionPoint.size();
 
+
+
     printf("%s[World 3D Reprojection Error]%s\n","\033[33m","\033[39m");
     printf("======================================================================================\n");
     printf("meanPixelError_x : %lf\nmeanPixelError_y : %lf\nnormPixelError : %lf\n", xErrorSum / (double)reProjectionPoint.size(), yErrorSum / (double)reProjectionPoint.size(), normPixelError);
     printf("======================================================================================\n\n");
+
+    //double ReprojectionParameter[3] = {xErrorSum / (double)reProjectionPoint.size(), yErrorSum / (double)reProjectionPoint.size(), normPixelError};
+    //Mat ReprojectionMatrix(3, 1, CV_64FC1,ReprojectionParameter);
+
+
+    QString QS_meanPixelError_x= QString::fromStdString(to_string(xErrorSum / (double)reProjectionPoint.size()));
+    ui->meanPixelError_x_text->setText(QS_meanPixelError_x);
+
+    QString QS_meanPixelError_y= QString::fromStdString(to_string(yErrorSum / (double)reProjectionPoint.size()));
+    ui->meanPixelError_y_text->setText(QS_meanPixelError_y);
+
+    QString QS_normPixelError= QString::fromStdString(to_string(normPixelError));
+    ui->normPixelError_text->setText(QS_normPixelError);
 
     /* CameraWorldPoint */
     Mat CameraPoint = -R_inv * T;
@@ -490,6 +476,15 @@ void mesurement_height::on_pushButton_2_clicked()
     printf("======================================================================================\n");
     printf("X = %.5lf\nY = %.5lf\nZ = %.5lf\n", p[0], p[1], p[2]);
     printf("======================================================================================\n\n");
+
+    QString QS_X= QString::fromStdString(to_string(p[0]));
+    ui->X_text->setText(QS_X);
+
+    QString QS_Y= QString::fromStdString(to_string(p[1]));
+    ui->Y_text->setText(QS_Y);
+
+    QString QS_Z= QString::fromStdString(to_string(p[2]));
+    ui->Z_text->setText(QS_Z);
 
     /* CameraPoseEstimate */
     double unit_z[] = {0, 0, 1};
@@ -526,4 +521,23 @@ void mesurement_height::on_pushButton_2_clicked()
     printf("TILT = %.5lf deg \nYAW = %.5lf deg\nROLL = %.5lf deg\n", tilt * 180 / CV_PI, pan * 180 / CV_PI, roll * 180 / CV_PI);
     printf("======================================================================================\n\n");
 
+    QString QS_TILT= QString::fromStdString(to_string(tilt * 180 / CV_PI));
+    ui->TILT_text->setText(QS_TILT);
+
+    QString QS_PAN= QString::fromStdString(to_string(pan * 180 / CV_PI));
+    ui->PAN_text->setText(QS_PAN);
+
+    QString QS_ROLL= QString::fromStdString(to_string(roll * 180 / CV_PI));
+    ui->ROLL_text->setText(QS_ROLL);
+
+//    double CameraPoseParameter[3] = {tilt * 180 / CV_PI, pan * 180 / CV_PI, roll * 180 / CV_PI};
+//    Mat CameraPoseMatrix(3, 1, CV_64FC1,CameraPoseParameter);
+//    QString QS_CameraPoseMatrix = QString::fromStdString(str_matrix(CameraPoseMatrix,3,1));
+//    ui->CameraPosition_text->setText(QS_CameraPoseMatrix);
+
+}
+
+CameraPoseEstimation::~CameraPoseEstimation()
+{
+    delete ui;
 }
