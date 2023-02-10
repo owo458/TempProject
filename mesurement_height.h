@@ -12,6 +12,12 @@
 #define MINI_IMG_W (384)
 #define MINI_IMG_H (216)
 
+//#define CHECKER_COLS (8)
+//#define CHECKER_ROWS (5)
+
+#define CHECKER_COLS (10)
+#define CHECKER_ROWS (7)
+
 using namespace std;
 
 namespace Ui {
@@ -54,6 +60,10 @@ private:
     /*@woneyy*/
     QString outText_roll;
     float value_roll_inPixel;
+
+    vector<cv::Point2f> corners_1;
+    cv::Size checker_size = cv::Size(CHECKER_COLS-1, CHECKER_ROWS-1);
+
 
 };
 

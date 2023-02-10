@@ -5,6 +5,8 @@
 
 #include "checkcamerainstallation.h"
 
+#define CAMERA_LOCATION_X (0)
+
 using namespace cv;
 using namespace std;
 
@@ -68,12 +70,17 @@ void mesurement_height::update_window()
     qt_image_mini_2 = QImage((const unsigned char*) (mesurement_height::frame_display_mini_2.data), MINI_IMG_W, MINI_IMG_H, QImage::Format_RGB888);
     ui->label_image_mini_2->setPixmap(QPixmap::fromImage(qt_image_mini_2));
 
+
 }
 
 void mesurement_height::on_pushButton_capture_1_clicked(bool capture_checked_1)
 {
+    mesurement_height::frame.copyTo(mesurement_height::tmpFrame_1);
+//    corners_1 = checkCameraInstallation::findChessboard(mesurement_height::tmpFrame_1, mesurement_height::checker_size);
+//    cout << corners_1.size() << endl;
+
     cv::resize(frame, frame_display_mini_1, cv::Size(MINI_IMG_W, MINI_IMG_H));
-//    mesurement_height::frame.copyTo(mesurement_height::frame_display_mini_1);
+
 //    frame_display_mini_1, frame_display_mini_2
 //    cv::imshow("test", mesurement_height::frame);
 //    cout << "teeeeesstt 1111" <<endl;
@@ -83,6 +90,7 @@ void mesurement_height::on_pushButton_capture_1_clicked(bool capture_checked_1)
 void mesurement_height::on_pushButton_capture_2_clicked(bool capture_checked_2)
 {
     cv::resize(frame, frame_display_mini_2, cv::Size(MINI_IMG_W, MINI_IMG_H));
+    mesurement_height::frame.copyTo(mesurement_height::tmpFrame_2);
 //    cout << "teeeeesstt 2222" <<endl;
 }
 

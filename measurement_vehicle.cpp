@@ -24,3 +24,10 @@ void Measurement_vehicle::on_pushbtn_next_mesure_clicked()
     this->third_dialog = new mesurement_height();
     this->third_dialog->show();
 }
+
+
+//void Measurement_vehicle::on_textEdit_camInstalled_textChanged()
+//{
+//    cameraInstalledLocataion = ui->textEdit_camInstalled->toPlainText().toFloat();
+//    cout << cameraInstalledLocataion << endl;
+//}

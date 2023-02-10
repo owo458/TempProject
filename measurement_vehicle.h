@@ -2,6 +2,7 @@
 #define MEASUREMENT_VEHICLE_H
 
 #include <QWidget>
+#include <QString>
 #include "mesurement_height.h"
 
 namespace Ui {
@@ -24,6 +25,8 @@ private:
     Ui::Measurement_vehicle *ui;
 
     mesurement_height *third_dialog;
+
+    float cameraInstalledLocataion;
 };
 
 #endif // MEASUREMENT_VEHICLE_H
