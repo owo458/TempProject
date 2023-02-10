@@ -1,5 +1,5 @@
-#ifndef MESUREMENT_HEIGHT_H
-#define MESUREMENT_HEIGHT_H
+#ifndef CaptureImg_H
+#define CaptureImg_H
 
 #include <QWidget>
 #include <QTimer>
@@ -9,22 +9,25 @@
 #include "opencv4/opencv2/imgproc/imgproc.hpp"
 #include "opencv4/opencv2/highgui/highgui.hpp"
 
+#include "cameraposeestimation.h"
+
 #define MINI_IMG_W (384)
 #define MINI_IMG_H (216)
 
 using namespace std;
 
 namespace Ui {
-class mesurement_height;
+class CaptureImg;
 }
 
-class mesurement_height : public QWidget
+class CaptureImg : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit mesurement_height(QWidget *parent = nullptr);
-    ~mesurement_height();
+    explicit CaptureImg(QWidget *parent = nullptr);
+    cv::Mat tmpFrame_1, tmpFrame_2;
+    ~CaptureImg();
 
 private slots:
     void update_window();
@@ -36,7 +39,7 @@ private slots:
     void on_pushButton_capture_2_clicked(bool checked);
 
 private:
-    Ui::mesurement_height *ui;
+    Ui::CaptureImg *ui;
 
     QTimer *timer;
     QImage qt_image;
@@ -49,7 +52,9 @@ private:
 
 
     cv::Mat frame_display, frame_display_mini_1, frame_display_mini_2;
-    cv::Mat tmpFrame_1, tmpFrame_2;
+    //cv::Mat tmpFrame_1, tmpFrame_2;
+
+    CameraPoseEstimation *fore_dialog;
 
     /*@woneyy*/
     QString outText_roll;
@@ -57,4 +62,4 @@ private:
 
 };
 
-#endif // MESUREMENT_HEIGHT_H
+#endif // CaptureImg_H

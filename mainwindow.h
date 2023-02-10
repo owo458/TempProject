@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include "measurement_vehicle.h"
+#include "parameterinput.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,7 +23,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    Measurement_vehicle *second_dialog;
+    ParameterInput *second_dialog;
 };
 
 #endif // MAINWINDOW_H

@@ -16,6 +16,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushbtn_extrinsic_clicked()
 {
-    this->second_dialog = new Measurement_vehicle(this);
+    this->second_dialog = new ParameterInput(this);
     this->second_dialog->show();
 }

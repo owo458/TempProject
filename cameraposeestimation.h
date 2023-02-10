@@ -2,6 +2,7 @@
 #define CAMERAPOSEESTIMATION_H
 
 #include <QWidget>
+#include <opencv2/opencv.hpp>
 
 namespace Ui {
 class CameraPoseEstimation;

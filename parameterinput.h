@@ -1,29 +1,28 @@
-#ifndef MEASUREMENT_VEHICLE_H
-#define MEASUREMENT_VEHICLE_H
+#ifndef ParameterInput_H
+#define ParameterInput_H
 
 #include <QWidget>
-#include "mesurement_height.h"
+#include "captureimg.h"
 
 namespace Ui {
-class Measurement_vehicle;
+class ParameterInput;
 }
 
-class Measurement_vehicle : public QWidget
+class ParameterInput : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit Measurement_vehicle(QWidget *parent = nullptr);
-    ~Measurement_vehicle();
+    explicit ParameterInput(QWidget *parent = nullptr);
+    ~ParameterInput();
 
 private slots:
     void on_pushbtn_prev_mesure_clicked();
     void on_pushbtn_next_mesure_clicked();
-
 private:
-    Ui::Measurement_vehicle *ui;
+    Ui::ParameterInput *ui;
 
-    mesurement_height *third_dialog;
+    CaptureImg *third_dialog;
 };
 
-#endif // MEASUREMENT_VEHICLE_H
+#endif // ParameterInput_H

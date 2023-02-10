@@ -1,26 +1,53 @@
-#include "measurement_vehicle.h"
-#include "ui_measurement_vehicle.h"
+#include "parameterinput.h"
+#include "ui_parameterinput.h"
+#include <stdio.h>
+#include <QString>
+#include <string>
+#include <glob.h>\
 
-Measurement_vehicle::Measurement_vehicle(QWidget *parent) :
+
+using namespace cv;
+using namespace std;
+
+ParameterInput::ParameterInput(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Measurement_vehicle)
+    ui(new Ui::ParameterInput)
 {
     ui->setupUi(this);
 }
 
-Measurement_vehicle::~Measurement_vehicle()
+ParameterInput::~ParameterInput()
 {
     delete ui;
 }
 
-void Measurement_vehicle::on_pushbtn_prev_mesure_clicked()
+void ParameterInput::on_pushbtn_prev_mesure_clicked()
 {
     this->close();
 }
 
-void Measurement_vehicle::on_pushbtn_next_mesure_clicked()
+string str1;
+string str2;
+string str3;
+
+void ParameterInput::on_pushbtn_next_mesure_clicked()
 {
     this->close();
-    this->third_dialog = new mesurement_height();
+
+    QString S1,S2,S3;
+
+    S1 = ui->CarWidth->toPlainText();
+    S2 = ui->CameraHeight->toPlainText();
+    S3 = ui->CameraToBumper->toPlainText();
+
+    str1 = S1.toStdString();
+    str2 = S2.toStdString();
+    str3 = S3.toStdString();
+
+    //float a = stof(str1);
+//    cout << "ParameterInput_CarWidth: "<< str1 << endl;
+//    cout << "ParameterInput_CameraHeight: "<< str2 << endl;
+//    cout << "ParameterInput_CameraToBumper: "<< str3 << endl;
+    this->third_dialog = new CaptureImg();
     this->third_dialog->show();
 }
