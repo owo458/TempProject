@@ -31,11 +31,25 @@ private slots:
 
     void on_lineEdit_carWidth_cursorPositionChanged(int arg1, int arg2);
 
-    void on_lineEdit_camHeight_cursorPositionChanged(int arg1, int arg2);
+    void on_lineEdit_carHeight_cursorPositionChanged(int arg1, int arg2);
 
-    void on_lineEdit_camToBumper_cursorPositionChanged(int arg1, int arg2);
+    void on_lineEdit_cameraTobumper_cursorPositionChanged(int arg1, int arg2);
 
-    void on_lineEdit_camInstallLoc_cursorPositionChanged(int arg1, int arg2);
+    void on_lineEdit_cameraInstallPosition_cursorPositionChanged(int arg1, int arg2);
+
+    void on_lineEdit_cellSize_cursorPositionChanged(int arg1, int arg2);
+
+    void on_lineEdit_chessboardSizeX_cursorPositionChanged(int arg1, int arg2);
+
+    void on_lineEdit_chessboardSizeY_cursorPositionChanged(int arg1, int arg2);
+
+    void on_lineEdit_carTochessboard_1_cursorPositionChanged(int arg1, int arg2);
+
+    void on_lineEdit_carTochessboard_2_cursorPositionChanged(int arg1, int arg2);
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::ParameterInput *ui;

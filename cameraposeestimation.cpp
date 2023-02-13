@@ -5,6 +5,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/core/core.hpp>
+#include <QMessageBox>
 #include "captureimg.h"
 
 #define CAMERA_LOCATION_X (0)
@@ -12,163 +13,176 @@
 using namespace cv;
 using namespace std;
 
-extern float a;
-extern string str1;
-extern string str2;
-extern string str3;
-
 extern Mat CameraPoseCapture_1;
-extern Mat CameraPoseCapture_2;
 
-vector<cv::Point2f> get2DPointsinChessboard(Mat InputImg, float *avgCellPixelSize, float *Gap_Y,float *Gap_X,Point2i ChessboardSize)
+vector<cv::Point2f> get2DPointsinChessboard(Mat InputImg, float *avgCellPixelSize, float *Gap_Y,float *Gap_X,Point2i ChessboardSize, bool * foundchessboard)
 {
-
     printf("ChessboardSize                       : (%dx%d)\n", ChessboardSize.x,ChessboardSize.y);
     Mat grayImg;
-    cvtColor(InputImg, grayImg, COLOR_RGB2GRAY);
+    if (InputImg.empty() == 0)
+    {
+        cvtColor(InputImg, grayImg, COLOR_RGB2GRAY);
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("IMAGE Error     ");
+        msgBox.setText("     InputImg Empty     ");
+        msgBox.exec();
+    }
 
     vector<cv::Point2f> allCorner_pts;
     vector<cv::Point2f> chessboardCorner_pts;
-    cv::findChessboardCorners(grayImg, cv::Size(ChessboardSize.x - 1, ChessboardSize.y - 1), allCorner_pts);
+    *foundchessboard = cv::findChessboardCorners(grayImg, cv::Size(ChessboardSize.x - 1, ChessboardSize.y - 1), allCorner_pts);
+
     //cout << "CornerPoint1 : " << allCorner_pts <<endl;
 
-    cv::TermCriteria criteria(TermCriteria::EPS + TermCriteria::COUNT,100,0.001);
-    // findChessboardCorners에서 찾은 allCorner_pts에 저장된 픽셀들이 가리키는 위치를 더 정확하게 보정해주는 함수
-    cv::cornerSubPix(grayImg, allCorner_pts, cv::Size(11, 11), cv::Size(-1, -1), criteria);
-    //cout << "CornerPoint2 : " << allCorner_pts <<endl;
-
-    vector<float> AllcellSize;
-
-    for (int i = 0; i < (int)allCorner_pts.size(); i++)
+    if(*foundchessboard == true)
     {
-        // corner draw
-        circle(InputImg, allCorner_pts[i], 1, Scalar(255, 0, 0), 5);
-        //printf("Cell[%d] : (%f,%f)\n",i,allCorner_pts[i].x,allCorner_pts[i].y);
-        //가로 길이 collect
-        if (i % (ChessboardSize.x - 1) != 0)
+        cv::TermCriteria criteria(TermCriteria::EPS + TermCriteria::COUNT,100,0.001);
+        // findChessboardCorners에서 찾은 allCorner_pts에 저장된 픽셀들이 가리키는 위치를 더 정확하게 보정해주는 함수
+        cv::cornerSubPix(grayImg, allCorner_pts, cv::Size(11, 11), cv::Size(-1, -1), criteria);
+        //cout << "CornerPoint2 : " << allCorner_pts <<endl;
+
+        vector<float> AllcellSize;
+
+        for (int i = 0; i < (int)allCorner_pts.size(); i++)
         {
-            //printf("Cell_Size_x[%d - %d] : %f\n",i,i-1,allCorner_pts[i].x-allCorner_pts[i-1].x);
-            AllcellSize.push_back(abs(allCorner_pts[i].x - allCorner_pts[i - 1].x));
+            // corner draw
+            circle(InputImg, allCorner_pts[i], 1, Scalar(255, 0, 0), 5);
+            //printf("Cell[%d] : (%f,%f)\n",i,allCorner_pts[i].x,allCorner_pts[i].y);
+            //가로 길이 collect
+            if (i % (ChessboardSize.x - 1) != 0)
+            {
+                //printf("Cell_Size_x[%d - %d] : %f\n",i,i-1,allCorner_pts[i].x-allCorner_pts[i-1].x);
+                AllcellSize.push_back(abs(allCorner_pts[i].x - allCorner_pts[i - 1].x));
+            }
+
+            //세로 길이 collect
+            if ((i >= (ChessboardSize.x - 1)))
+            {
+                //printf("Cell_Size_y[%d - %d] : %f\n",i,i-(ChessboardSize.x-1),allCorner_pts[i].y-allCorner_pts[i-(ChessboardSize.x-1)].y);
+                AllcellSize.push_back(abs(allCorner_pts[i].y - allCorner_pts[i - (ChessboardSize.x-1)].y));
+            }
         }
 
-        //세로 길이 collect
-        if ((i >= (ChessboardSize.x - 1)))
+
+
+        //printf("AllcellSizeCount : %d\n",(int)AllcellSize.size());
+
+        float cnt = 0;
+
+        for (int i = 0; i < (int)AllcellSize.size(); i++)
         {
-            //printf("Cell_Size_y[%d - %d] : %f\n",i,i-(ChessboardSize.x-1),allCorner_pts[i].y-allCorner_pts[i-(ChessboardSize.x-1)].y);
-            AllcellSize.push_back(abs(allCorner_pts[i].y - allCorner_pts[i - (ChessboardSize.x-1)].y));
+            cnt += AllcellSize[i];
+            //cout << "AllcellSize : " << AllcellSize[i] << endl;
+
         }
+        *avgCellPixelSize = cnt / AllcellSize.size();
+        printf("avgCellPixelSize                     : %f [pixel]\n", *avgCellPixelSize);
+
+        printf("ImageCenterPoint                     : (%lf, %lf)\n", (float)InputImg.cols / 2, (float)InputImg.rows / 2);
+        circle(InputImg, Point(InputImg.cols / 2, InputImg.rows / 2), 1, Scalar(0, 0, 255), 5);
+        putText(InputImg, "ImageCenter", Point((InputImg.cols / 2) +10, (InputImg.rows / 2) + 20), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255), 2);
+
+        chessboardCorner_pts.push_back(allCorner_pts[0]);
+        chessboardCorner_pts.push_back(allCorner_pts[ChessboardSize.x-2]);
+        chessboardCorner_pts.push_back(allCorner_pts[(ChessboardSize.x-1)*(ChessboardSize.y-2)]);
+        chessboardCorner_pts.push_back(allCorner_pts[(ChessboardSize.x-1)*(ChessboardSize.y-1)-1]);
+
+        // float x1 = allCorner_pts[9].x;
+        // float y1 = allCorner_pts[9].y;
+
+        // float x2 = allCorner_pts[80].x;
+        // float y2 = allCorner_pts[80].y;
+
+        // float x3 = allCorner_pts[0].x;
+        // float y3 = allCorner_pts[0].y;
+
+        // float x4 = allCorner_pts[89].x;
+        // float y4 = allCorner_pts[89].y;
+
+        float x1 = chessboardCorner_pts[0].x;
+        float y1 = chessboardCorner_pts[0].y;
+
+        float x2 = chessboardCorner_pts[3].x;
+        float y2 = chessboardCorner_pts[3].y;
+
+        float x3 = chessboardCorner_pts[1].x;
+        float y3 = chessboardCorner_pts[1].y;
+
+        float x4 = chessboardCorner_pts[2].x;
+        float y4 = chessboardCorner_pts[2].y;
+
+        drawMarker(InputImg,Point2f(x1,y1),Scalar(0,0,255),1,20,3);
+        putText(InputImg, "Point[0]", Point(x1 + 10, y1 - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0), 2);
+        drawMarker(InputImg,Point2f(x2,y2),Scalar(0,0,255),1,20,3);
+        putText(InputImg, "Point[1]", Point(x3 + 10, y3 - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0), 2);
+        drawMarker(InputImg,Point2f(x3,y3),Scalar(0,0,255),1,20,3);
+        putText(InputImg, "Point[2]", Point(x4 + 10, y4 - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0), 2);
+        drawMarker(InputImg,Point2f(x4,y4),Scalar(0,0,255),1,20,3);
+        putText(InputImg, "Point[3]", Point(x2 + 10, y2 - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0), 2);
+
+        // cout  << "x1,y1 : " << x1 <<","<< y1 << endl;
+        // cout  << "x2,y2 : " << x2 <<","<< y2 << endl;
+        // cout  << "x3,y3 : " << x3 <<","<< y3 << endl;
+        // cout  << "x4,y4 : " << x4 <<","<< y4 << endl;
+
+        float cross_x = (((((x1*y2)-(y1*x2))*(x3-x4))-((x1-x2)*((x3*y4)-(y3*x4)))) / (((x1-x2)*(y3-y4))-((y1-y2)*(x3-x4))));
+        float cross_y = (((((x1*y2)-(y1*x2))*(y3-y4))-((y1-y2)*((x3*y4)-(y3*x4)))) / (((x1-x2)*(y3-y4))-((y1-y2)*(x3-x4))));
+
+        // cout  << "cross_x : " << cross_x << endl;
+        // cout  << "cross_y : " << cross_y << endl;
+
+        //cross_y -=*avgCellPixelSize; //Camera height만큼 빼준다.
+        circle(InputImg, Point(cross_x, cross_y), 1, Scalar(0, 255, 0), 5);
+
+        //putText(InputImg, "CameraHeightPoint", Point(cross_x + 10, cross_y - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0), 2);
+        //printf("CameraHeightPoint                    : (%f,%f)\n",cross_x,cross_y);
+
+        putText(InputImg, "ChessboardCenter", Point(cross_x + 10, cross_y - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0), 2);
+        printf("ChessboardCenterPoint                : (%f, %f)\n",cross_x,cross_y);
+
+
+        *Gap_Y = cross_y - InputImg.rows / 2;
+        // Gap의 값이 '+' => Tilt = - => camera가 아래를 보고 있다.
+        // Gap의 값이 '-' => Tilt = + => camera가 위쪽을 보고 있다.
+        // printf("ImageCenter_y - CameraHeightPoint_y  : %lf [pixel]\n", *Gap_Y);
+
+        *Gap_X = cross_x - InputImg.cols/2;
+
+        // Gap_X의 값이 '+' => camera가 Target Point를 바라보고 왼쪽으로 치우쳐 있다.
+        // Gap_X의 값이 '-' => camera가 Target Point를 바라보고 오른쪽으로 치우쳐 있다.
+        // printf("ImageCenter_x - CameraHeightPoint_x  : %lf [pixel]\n",*Gap_X);
+
+        if (chessboardCorner_pts[0].x > chessboardCorner_pts[3].x)
+        {
+            Point2f tmp = Point2f(0,0);
+            tmp = chessboardCorner_pts[0];
+            chessboardCorner_pts[0] = chessboardCorner_pts[3];
+            chessboardCorner_pts[3] = tmp;
+        }
+
+        if (chessboardCorner_pts[2].x > chessboardCorner_pts[1].x)
+        {
+            Point2f tmp = Point2f(0,0);
+            tmp = chessboardCorner_pts[2];
+            chessboardCorner_pts[2] = chessboardCorner_pts[1];
+            chessboardCorner_pts[1] = tmp;
+        }
+
+        printf("2D Point[LeftTop]                    : (%lf, %lf) \n", chessboardCorner_pts[0].x, chessboardCorner_pts[0].y);
+        printf("2D Point[RightTop]                   : (%lf, %lf) \n", chessboardCorner_pts[1].x, chessboardCorner_pts[1].y);
+        printf("2D Point[LeftBottom]                 : (%lf, %lf) \n", chessboardCorner_pts[2].x, chessboardCorner_pts[2].y);
+        printf("2D Point[RightBottom]                : (%lf, %lf) \n", chessboardCorner_pts[3].x, chessboardCorner_pts[3].y);
     }
-
-
-
-    //printf("AllcellSizeCount : %d\n",(int)AllcellSize.size());
-
-    float cnt = 0;
-
-    for (int i = 0; i < (int)AllcellSize.size(); i++)
+    else
     {
-        cnt += AllcellSize[i];
-        //cout << "AllcellSize : " << AllcellSize[i] << endl;
-
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Chessboard Error     ");
+        msgBox.setText("Not Detection ChessBoard     ");
+        msgBox.exec();
     }
-    *avgCellPixelSize = cnt / AllcellSize.size();
-    printf("avgCellPixelSize                     : %f [pixel]\n", *avgCellPixelSize);
-
-    printf("ImageCenterPoint                     : (%lf, %lf)\n", (float)InputImg.cols / 2, (float)InputImg.rows / 2);
-    circle(InputImg, Point(InputImg.cols / 2, InputImg.rows / 2), 1, Scalar(0, 0, 255), 5);
-    putText(InputImg, "ImageCenter", Point((InputImg.cols / 2) +10, (InputImg.rows / 2) + 20), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255), 2);
-
-    chessboardCorner_pts.push_back(allCorner_pts[0]);
-    chessboardCorner_pts.push_back(allCorner_pts[ChessboardSize.x-2]);
-    chessboardCorner_pts.push_back(allCorner_pts[(ChessboardSize.x-1)*(ChessboardSize.y-2)]);
-    chessboardCorner_pts.push_back(allCorner_pts[(ChessboardSize.x-1)*(ChessboardSize.y-1)-1]);
-
-    // float x1 = allCorner_pts[9].x;
-    // float y1 = allCorner_pts[9].y;
-
-    // float x2 = allCorner_pts[80].x;
-    // float y2 = allCorner_pts[80].y;
-
-    // float x3 = allCorner_pts[0].x;
-    // float y3 = allCorner_pts[0].y;
-
-    // float x4 = allCorner_pts[89].x;
-    // float y4 = allCorner_pts[89].y;
-
-    float x1 = chessboardCorner_pts[0].x;
-    float y1 = chessboardCorner_pts[0].y;
-
-    float x2 = chessboardCorner_pts[3].x;
-    float y2 = chessboardCorner_pts[3].y;
-
-    float x3 = chessboardCorner_pts[1].x;
-    float y3 = chessboardCorner_pts[1].y;
-
-    float x4 = chessboardCorner_pts[2].x;
-    float y4 = chessboardCorner_pts[2].y;
-
-    drawMarker(InputImg,Point2f(x1,y1),Scalar(0,0,255),1,20,3);
-    putText(InputImg, "Point[0]", Point(x1 + 10, y1 - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0), 2);
-    drawMarker(InputImg,Point2f(x2,y2),Scalar(0,0,255),1,20,3);
-    putText(InputImg, "Point[1]", Point(x3 + 10, y3 - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0), 2);
-    drawMarker(InputImg,Point2f(x3,y3),Scalar(0,0,255),1,20,3);
-    putText(InputImg, "Point[2]", Point(x4 + 10, y4 - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0), 2);
-    drawMarker(InputImg,Point2f(x4,y4),Scalar(0,0,255),1,20,3);
-    putText(InputImg, "Point[3]", Point(x2 + 10, y2 - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0), 2);
-
-    // cout  << "x1,y1 : " << x1 <<","<< y1 << endl;
-    // cout  << "x2,y2 : " << x2 <<","<< y2 << endl;
-    // cout  << "x3,y3 : " << x3 <<","<< y3 << endl;
-    // cout  << "x4,y4 : " << x4 <<","<< y4 << endl;
-
-    float cross_x = (((((x1*y2)-(y1*x2))*(x3-x4))-((x1-x2)*((x3*y4)-(y3*x4)))) / (((x1-x2)*(y3-y4))-((y1-y2)*(x3-x4))));
-    float cross_y = (((((x1*y2)-(y1*x2))*(y3-y4))-((y1-y2)*((x3*y4)-(y3*x4)))) / (((x1-x2)*(y3-y4))-((y1-y2)*(x3-x4))));
-
-    // cout  << "cross_x : " << cross_x << endl;
-    // cout  << "cross_y : " << cross_y << endl;
-
-    //cross_y -=*avgCellPixelSize; //Camera height만큼 빼준다.
-    circle(InputImg, Point(cross_x, cross_y), 1, Scalar(0, 255, 0), 5);
-
-    //putText(InputImg, "CameraHeightPoint", Point(cross_x + 10, cross_y - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0), 2);
-    //printf("CameraHeightPoint                    : (%f,%f)\n",cross_x,cross_y);
-
-    putText(InputImg, "ChessboardCenter", Point(cross_x + 10, cross_y - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0), 2);
-    printf("ChessboardCenterPoint                : (%f, %f)\n",cross_x,cross_y);
-
-
-    *Gap_Y = cross_y - InputImg.rows / 2;
-    // Gap의 값이 '+' => Tilt = - => camera가 아래를 보고 있다.
-    // Gap의 값이 '-' => Tilt = + => camera가 위쪽을 보고 있다.
-    // printf("ImageCenter_y - CameraHeightPoint_y  : %lf [pixel]\n", *Gap_Y);
-
-    *Gap_X = cross_x - InputImg.cols/2;
-
-    // Gap_X의 값이 '+' => camera가 Target Point를 바라보고 왼쪽으로 치우쳐 있다.
-    // Gap_X의 값이 '-' => camera가 Target Point를 바라보고 오른쪽으로 치우쳐 있다.
-    // printf("ImageCenter_x - CameraHeightPoint_x  : %lf [pixel]\n",*Gap_X);
-
-    if (chessboardCorner_pts[0].x > chessboardCorner_pts[3].x)
-    {
-        Point2f tmp = Point2f(0,0);
-        tmp = chessboardCorner_pts[0];
-        chessboardCorner_pts[0] = chessboardCorner_pts[3];
-        chessboardCorner_pts[3] = tmp;
-    }
-
-    if (chessboardCorner_pts[2].x > chessboardCorner_pts[1].x)
-    {
-        Point2f tmp = Point2f(0,0);
-        tmp = chessboardCorner_pts[2];
-        chessboardCorner_pts[2] = chessboardCorner_pts[1];
-        chessboardCorner_pts[1] = tmp;
-    }
-
-    printf("2D Point[LeftTop]                    : (%lf, %lf) \n", chessboardCorner_pts[0].x, chessboardCorner_pts[0].y);
-    printf("2D Point[RightTop]                   : (%lf, %lf) \n", chessboardCorner_pts[1].x, chessboardCorner_pts[1].y);
-    printf("2D Point[LeftBottom]                 : (%lf, %lf) \n", chessboardCorner_pts[2].x, chessboardCorner_pts[2].y);
-    printf("2D Point[RightBottom]                : (%lf, %lf) \n", chessboardCorner_pts[3].x, chessboardCorner_pts[3].y);
-
     return chessboardCorner_pts;
 }
 
@@ -318,15 +332,15 @@ CameraPoseEstimation::CameraPoseEstimation(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    cout << "Camera Off" << endl;
-    float CarWidth = stof(str1);
-    float CameraHeight = stof(str2);
-    float CameraToBumper = stof(str3);
-    cout << "CarWidth :" << CarWidth <<"m"<< endl;
-    cout << "CameraHeight :" << CameraHeight <<"m"<< endl;
-    cout << "CameraToBumper :" << CameraToBumper <<"m"<< endl;
-    Mat rawImg = imread("/home/server/e_calibration/3m.png");
-    //Mat rawImg = CameraPoseCapture_1;
+    //cout << "Camera Off" << endl;
+//    float CarWidth = stof(str1);
+//    float CameraHeight = stof(str2);
+//    float CameraToBumper = stof(str3);
+//    cout << "CarWidth :" << CarWidth <<"m"<< endl;
+//    cout << "CameraHeight :" << CameraHeight <<"m"<< endl;
+//    cout << "CameraToBumper :" << CameraToBumper <<"m"<< endl;
+    //Mat rawImg = imread("/home/server/e_calibration/3m.png");
+    Mat rawImg = CameraPoseCapture_1;
     Mat PointDetectionImg;
     Mat resize_PointDetectionImg;
 
@@ -334,7 +348,7 @@ CameraPoseEstimation::CameraPoseEstimation(QWidget *parent) :
     float avgCellPixelSizeInChessboard = 0.0;
     float CameraCenterAndChessboardCenterGap_y = 0.0;
     float CameraCenterAndChessboardCenterGap_x = 0.0;
-
+    bool foundchessboard =false;
     Point2i ChessboardSize = {10,11};
     vector<Point2f> corner2DImgPoint;
     vector<Point3f> corner3DImgPoint;
@@ -345,7 +359,11 @@ CameraPoseEstimation::CameraPoseEstimation(QWidget *parent) :
     Mat cameraDistortionCoefficient(5,1,CV_64FC1,B_data);
     printf("%s[2D Point : PixelCoordinates]%s\n","\033[33m","\033[39m");
     printf("======================================================================================\n");
-    corner2DImgPoint = get2DPointsinChessboard(PointDetectionImg, &avgCellPixelSizeInChessboard, &CameraCenterAndChessboardCenterGap_y,&CameraCenterAndChessboardCenterGap_x,ChessboardSize);
+    corner2DImgPoint = get2DPointsinChessboard(PointDetectionImg, &avgCellPixelSizeInChessboard, &CameraCenterAndChessboardCenterGap_y,&CameraCenterAndChessboardCenterGap_x,ChessboardSize,&foundchessboard);
+    if (foundchessboard == false)
+    {
+        cout << "all zero" <<endl;
+    }
     circle(PointDetectionImg,Point2f(cameraIntrinsicParameter.at<double>(0,2),cameraIntrinsicParameter.at<double>(1,2)),1,Scalar(0,255,255),5);
     putText(PointDetectionImg, "PrincipalPoint", Point(cameraIntrinsicParameter.at<double>(0,2)+10,cameraIntrinsicParameter.at<double>(1,2)-10), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 255), 2);
     printf("======================================================================================\n\n");

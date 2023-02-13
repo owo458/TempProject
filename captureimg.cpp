@@ -1,7 +1,7 @@
 #include "captureimg.h"
 #include "ui_captureimg.h"
 #include <stdio.h>
-
+#include <QMessageBox>
 
 #include "checkcamerainstallation.h"
 
@@ -10,6 +10,7 @@ using namespace std;
 
 Mat CameraPoseCapture_1;
 Mat CameraPoseCapture_2;
+bool foundchessboard = false;
 
 CaptureImg::CaptureImg(QWidget *parent) :
     QWidget(parent),
@@ -77,9 +78,20 @@ void CaptureImg::update_window()
 
 void CaptureImg::on_pushButton_capture_1_clicked(bool capture_checked_1)
 {
+    foundchessboard = false;
     CaptureImg::frame.copyTo(CaptureImg::tmpFrame_1);
-    CaptureImg::findChessboard(tmpFrame_1, checker_size, &corners_1);
-    CaptureImg::roll_by_checkered(tmpFrame_1, checker_size, corners_1, &value_roll_1);
+    CaptureImg::findChessboard(tmpFrame_1, checker_size, &corners_1,&foundchessboard);
+    if (foundchessboard == true)
+    {
+        CaptureImg::roll_by_checkered(tmpFrame_1, checker_size, corners_1, &value_roll_1);
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Chessboard Error     ");
+        msgBox.setText("Not Detection ChessBoard     ");
+        msgBox.exec();
+    }
     ui->textEdit_value_roll_1->setText(QString::number(value_roll_1));
     cv::resize(tmpFrame_1, frame_display_mini_1, cv::Size(MINI_IMG_W, MINI_IMG_H));
 
@@ -89,13 +101,23 @@ void CaptureImg::on_pushButton_capture_1_clicked(bool capture_checked_1)
 
 void CaptureImg::on_pushButton_capture_2_clicked(bool capture_checked_2)
 {
+    foundchessboard = false;
     CaptureImg::frame.copyTo(CaptureImg::tmpFrame_2);
-    CaptureImg::findChessboard(tmpFrame_2, checker_size, &corners_2);
-    CaptureImg::roll_by_checkered(tmpFrame_1, checker_size, corners_1, &value_roll_2);
+    CaptureImg::findChessboard(tmpFrame_2, checker_size, &corners_2,&foundchessboard);
+    if (foundchessboard == true)
+    {
+        CaptureImg::roll_by_checkered(tmpFrame_1, checker_size, corners_1, &value_roll_2);
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Chessboard Error     ");
+        msgBox.setText("Not Detection ChessBoard     ");
+        msgBox.exec();
+    }
+
     ui->textEdit_value_roll_2->setText(QString::number(value_roll_2));
     cv::resize(tmpFrame_2, frame_display_mini_2, cv::Size(MINI_IMG_W, MINI_IMG_H));
-
-    CameraPoseCapture_2 = frame;
 }
 
 void CaptureImg::on_pushButton_2_clicked()
@@ -107,9 +129,18 @@ void CaptureImg::on_pushButton_2_clicked()
 
 void CaptureImg::on_pushButton_3_clicked()
 {
-    CaptureImg::tilt_by_checkered(tmpFrame_1, tmpFrame_2, checker_size, corners_1, corners_2, &value_tilt);
+    if (tmpFrame_1.empty() == 0 && tmpFrame_2.empty() == 0 && foundchessboard == true)
+    {
+        CaptureImg::tilt_by_checkered(tmpFrame_1, tmpFrame_2, checker_size, corners_1, corners_2, &value_tilt);
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Error     ");
+        msgBox.setText("Capture Image is Empty or Not Detection Chessboard     ");
+        msgBox.exec();
+    }
 //    tilt_by_checkered_cy(tmpFrame_1, checker_size, corners_1);
-
     ui->textEdit_value_tilt->setText(QString::number(value_tilt));
 
 }

@@ -74,24 +74,23 @@ private:
 
 //    QString outText_roll_inPixel, outText_roll, outText_tilt;
     float value_roll_inPixel;
-    float value_roll_1, value_roll_2, value_tilt;
+    float value_roll_1 = 0, value_roll_2= 0, value_tilt= 0;
 
     vector<cv::Point2f> corners_1, corners_2;
     cv::Size checker_size = cv::Size(CHECKER_COLS-1, CHECKER_ROWS-1);
 
 
-    void findChessboard(cv::Mat input_img, cv::Size checker_size, vector<cv::Point2f> *corners)
+    void findChessboard(cv::Mat input_img, cv::Size checker_size, vector<cv::Point2f> *corners,bool *found)
     {
       cv::Mat gray_img;
       cv::cvtColor(input_img, gray_img, cv::COLOR_BGR2GRAY);
 
-      bool found = cv::findChessboardCorners(input_img, checker_size, *corners, cv::CALIB_CB_ADAPTIVE_THRESH + cv::CALIB_CB_NORMALIZE_IMAGE + cv::CALIB_CB_FAST_CHECK);
-      if(found == true)
+      *found = cv::findChessboardCorners(input_img, checker_size, *corners, cv::CALIB_CB_ADAPTIVE_THRESH + cv::CALIB_CB_NORMALIZE_IMAGE + cv::CALIB_CB_FAST_CHECK);
+      if(*found == true)
       {
         cv::cornerSubPix(gray_img, *corners, cv::Size(11, 11), cv::Size(-1, -1), cv::TermCriteria(cv::TermCriteria::EPS + cv::TermCriteria::COUNT, 30, 0.1));
         cv::drawChessboardCorners(input_img, checker_size, *corners, found);
       }
-
 
     }
 
