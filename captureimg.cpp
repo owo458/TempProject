@@ -50,6 +50,8 @@ void CaptureImg::update_window()
     checkCameraInstallation(CaptureImg::image_input, &value_roll_inPixel);
 //    cout << value_roll_inPixel << endl;
 
+//    cout << ParameterInput::carWidth << endl;
+
     if (value_roll_inPixel != 99)
     {
 //        cout << value_roll_inPixel << endl;
@@ -75,18 +77,25 @@ void CaptureImg::update_window()
 
 void CaptureImg::on_pushButton_capture_1_clicked(bool capture_checked_1)
 {
-    cout << "Test" << endl;
-    cv::resize(frame, frame_display_mini_1, cv::Size(MINI_IMG_W, MINI_IMG_H));
     CaptureImg::frame.copyTo(CaptureImg::tmpFrame_1);
-    CameraPoseCapture_1 = frame_display_mini_1;
+    CaptureImg::findChessboard(tmpFrame_1, checker_size, &corners_1);
+    CaptureImg::roll_by_checkered(tmpFrame_1, checker_size, corners_1, &value_roll_1);
+    ui->textEdit_value_roll_1->setText(QString::number(value_roll_1));
+    cv::resize(tmpFrame_1, frame_display_mini_1, cv::Size(MINI_IMG_W, MINI_IMG_H));
+
+    CameraPoseCapture_1 = frame;
 
 }
 
 void CaptureImg::on_pushButton_capture_2_clicked(bool capture_checked_2)
 {
-    cv::resize(frame, frame_display_mini_2, cv::Size(MINI_IMG_W, MINI_IMG_H));
-    CaptureImg::frame.copyTo(CaptureImg::tmpFrame_1);
-    CameraPoseCapture_1 = frame_display_mini_2;
+    CaptureImg::frame.copyTo(CaptureImg::tmpFrame_2);
+    CaptureImg::findChessboard(tmpFrame_2, checker_size, &corners_2);
+    CaptureImg::roll_by_checkered(tmpFrame_1, checker_size, corners_1, &value_roll_2);
+    ui->textEdit_value_roll_2->setText(QString::number(value_roll_2));
+    cv::resize(tmpFrame_2, frame_display_mini_2, cv::Size(MINI_IMG_W, MINI_IMG_H));
+
+    CameraPoseCapture_2 = frame;
 }
 
 void CaptureImg::on_pushButton_2_clicked()
@@ -94,4 +103,13 @@ void CaptureImg::on_pushButton_2_clicked()
     this->close();
     this->fore_dialog = new CameraPoseEstimation();
     this->fore_dialog->show();
+}
+
+void CaptureImg::on_pushButton_3_clicked()
+{
+    CaptureImg::tilt_by_checkered(tmpFrame_1, tmpFrame_2, checker_size, corners_1, corners_2, &value_tilt);
+//    tilt_by_checkered_cy(tmpFrame_1, checker_size, corners_1);
+
+    ui->textEdit_value_tilt->setText(QString::number(value_tilt));
+
 }
