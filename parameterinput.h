@@ -20,11 +20,6 @@ public:
     ~ParameterInput();
 
 
-//    const float carWidth = 0.f;
-//    const float camHeight = 0.f;
-//    const float camToBumper = 0.f;
-//    const float camInstallLoc = 0.f;
-
 private slots:
     void on_pushbtn_prev_mesure_clicked();
     void on_pushbtn_next_mesure_clicked();

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Camera Pose Estimation</string>
   </property>
   <widget class="QLabel" name="ReProjectionImg">
    <property name="geometry">
