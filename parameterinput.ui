@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>ParameterInput</string>
   </property>
   <widget class="QPushButton" name="pushbtn_prev_mesure">
    <property name="geometry">
@@ -42,9 +42,9 @@
   <widget class="QLabel" name="PointImg">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>510</x>
      <y>10</y>
-     <width>500</width>
+     <width>480</width>
      <height>250</height>
     </rect>
    </property>
@@ -55,17 +55,17 @@
     <string/>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>30</x>
      <y>10</y>
-     <width>451</width>
-     <height>251</height>
+     <width>471</width>
+     <height>257</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="6" column="0">
+    <item row="7" column="0">
      <widget class="QLabel" name="label_5">
       <property name="text">
        <string>Chessboard Size</string>
@@ -73,12 +73,12 @@
      </widget>
     </item>
     <item row="0" column="1" colspan="2">
-     <widget class="QLineEdit" name="lineEdit_carWidth">
+     <widget class="QLineEdit" name="lineEdit_CarWidth">
       <property name="text">
        <string/>
       </property>
       <property name="placeholderText">
-       <string notr="true">wheel to wheel (m)</string>
+       <string notr="true">Wheel to wheel (m)</string>
       </property>
       <property name="clearButtonEnabled">
        <bool>false</bool>
@@ -86,37 +86,37 @@
      </widget>
     </item>
     <item row="2" column="1" colspan="2">
-     <widget class="QLineEdit" name="lineEdit_cameraTobumper">
+     <widget class="QLineEdit" name="lineEdit_CameraToBumper">
       <property name="text">
        <string/>
       </property>
       <property name="placeholderText">
-       <string notr="true">cam to bumper (m)</string>
+       <string notr="true">Cam to bumper (m)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1">
+     <widget class="QLineEdit" name="lineEdit_CarToChessboard_1">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string notr="true">Cam to target_1 (m)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="2">
+     <widget class="QLineEdit" name="lineEdit_CarToChessboard_2">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string notr="true">Cam to target_2(m)</string>
       </property>
      </widget>
     </item>
     <item row="7" column="1">
-     <widget class="QLineEdit" name="lineEdit_carTochessboard_1">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="placeholderText">
-       <string notr="true">cma to target(m)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="2">
-     <widget class="QLineEdit" name="lineEdit_carTochessboard_2">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="placeholderText">
-       <string notr="true">cma to target(m)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="QLineEdit" name="lineEdit_chessboardSizeX">
+     <widget class="QLineEdit" name="lineEdit_ChessboardSizeX">
       <property name="text">
        <string/>
       </property>
@@ -133,7 +133,7 @@
      </widget>
     </item>
     <item row="3" column="1">
-     <widget class="QLineEdit" name="lineEdit_cameraInstallPosition">
+     <widget class="QLineEdit" name="lineEdit_CameraInstallPosition">
       <property name="text">
        <string/>
       </property>
@@ -149,7 +149,7 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="0">
+    <item row="6" column="0">
      <widget class="QLabel" name="label_4">
       <property name="text">
        <string>Chessboard Cell Size          (mm)</string>
@@ -157,24 +157,24 @@
      </widget>
     </item>
     <item row="1" column="1" colspan="2">
-     <widget class="QLineEdit" name="lineEdit_carHeight">
+     <widget class="QLineEdit" name="lineEdit_CarHeight">
       <property name="text">
        <string/>
       </property>
       <property name="placeholderText">
-       <string notr="true">bottom to top (m)</string>
+       <string notr="true">Bottom to top (m)</string>
       </property>
      </widget>
     </item>
-    <item row="7" column="0">
+    <item row="8" column="0">
      <widget class="QLabel" name="label_8">
       <property name="text">
-       <string>Chessboard Distance          (mm)</string>
+       <string>Chessboard Distance            (m)</string>
       </property>
      </widget>
     </item>
-    <item row="6" column="2">
-     <widget class="QLineEdit" name="lineEdit_chessboardSizeY">
+    <item row="7" column="2">
+     <widget class="QLineEdit" name="lineEdit_ChessboardSizeY">
       <property name="text">
        <string/>
       </property>
@@ -190,27 +190,13 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="1" colspan="2">
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="text">
-       <string>Load</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1" colspan="2">
-     <widget class="QLineEdit" name="lineEdit_cellSize">
+    <item row="6" column="1" colspan="2">
+     <widget class="QLineEdit" name="lineEdit_ChessboardCellSize">
       <property name="text">
        <string/>
       </property>
       <property name="placeholderText">
-       <string notr="true">Cell Size (mm)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_7">
-      <property name="text">
-       <string>Instrinsic Parameter</string>
+       <string notr="true">Cell size (mm)</string>
       </property>
      </widget>
     </item>
@@ -228,9 +214,57 @@
       </property>
      </widget>
     </item>
+    <item row="5" column="1" colspan="2">
+     <widget class="QLineEdit" name="lineEdit_FileName">
+      <property name="minimumSize">
+       <size>
+        <width>119</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string notr="true">Txt path</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1" colspan="2">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="text">
+       <string>Load</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" rowspan="2">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>Instrinsic Parameter</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_CarWidth</tabstop>
+  <tabstop>lineEdit_CarHeight</tabstop>
+  <tabstop>lineEdit_CameraToBumper</tabstop>
+  <tabstop>lineEdit_CameraInstallPosition</tabstop>
+  <tabstop>lineEdit_ChessboardCellSize</tabstop>
+  <tabstop>lineEdit_ChessboardSizeX</tabstop>
+  <tabstop>lineEdit_ChessboardSizeY</tabstop>
+  <tabstop>lineEdit_CarToChessboard_1</tabstop>
+  <tabstop>lineEdit_CarToChessboard_2</tabstop>
+  <tabstop>pushbtn_prev_mesure</tabstop>
+  <tabstop>pushbtn_next_mesure</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_2</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -29,23 +29,23 @@ private slots:
     void on_pushbtn_prev_mesure_clicked();
     void on_pushbtn_next_mesure_clicked();
 
-    void on_lineEdit_carWidth_cursorPositionChanged(int arg1, int arg2);
+    void on_lineEdit_CarWidth_cursorPositionChanged(int arg1, int arg2);
 
-    void on_lineEdit_carHeight_cursorPositionChanged(int arg1, int arg2);
+    void on_lineEdit_CarHeight_cursorPositionChanged(int arg1, int arg2);
 
-    void on_lineEdit_cameraTobumper_cursorPositionChanged(int arg1, int arg2);
+    void on_lineEdit_CameraToBumper_cursorPositionChanged(int arg1, int arg2);
 
-    void on_lineEdit_cameraInstallPosition_cursorPositionChanged(int arg1, int arg2);
+    void on_lineEdit_CameraInstallPosition_cursorPositionChanged(int arg1, int arg2);
 
-    void on_lineEdit_cellSize_cursorPositionChanged(int arg1, int arg2);
+    void on_lineEdit_ChessboardCellSize_cursorPositionChanged(int arg1, int arg2);
 
-    void on_lineEdit_chessboardSizeX_cursorPositionChanged(int arg1, int arg2);
+    void on_lineEdit_ChessboardSizeX_cursorPositionChanged(int arg1, int arg2);
 
-    void on_lineEdit_chessboardSizeY_cursorPositionChanged(int arg1, int arg2);
+    void on_lineEdit_ChessboardSizeY_cursorPositionChanged(int arg1, int arg2);
 
-    void on_lineEdit_carTochessboard_1_cursorPositionChanged(int arg1, int arg2);
+    void on_lineEdit_CarToChessboard_1_cursorPositionChanged(int arg1, int arg2);
 
-    void on_lineEdit_carTochessboard_2_cursorPositionChanged(int arg1, int arg2);
+    void on_lineEdit_CarToChessboard_2_cursorPositionChanged(int arg1, int arg2);
 
     void on_pushButton_clicked();
 
@@ -55,7 +55,7 @@ private:
     Ui::ParameterInput *ui;
 
     //숫자만 - 소숫점 표시
-    QDoubleValidator *doubleValidator=new QDoubleValidator(0,9999.00,2); //최소수,최대수,소수점 뒤 갯수
+    QDoubleValidator *doubleValidator=new QDoubleValidator(-9999.0,9999.0,4); //최소수,최대수,소수점 뒤 갯수
 
 
     CaptureImg *third_dialog;

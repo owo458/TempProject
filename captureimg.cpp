@@ -49,13 +49,9 @@ void CaptureImg::update_window()
 
     frame.copyTo(image_input);
     checkCameraInstallation(CaptureImg::image_input, &value_roll_inPixel);
-//    cout << value_roll_inPixel << endl;
-
-//    cout << ParameterInput::carWidth << endl;
 
     if (value_roll_inPixel != 99)
     {
-//        cout << value_roll_inPixel << endl;
         ui->textEdit_value->setText(QString::number(value_roll_inPixel));
     }
     else
@@ -140,7 +136,6 @@ void CaptureImg::on_pushButton_3_clicked()
         msgBox.setText("Capture Image is Empty or Not Detection Chessboard     ");
         msgBox.exec();
     }
-//    tilt_by_checkered_cy(tmpFrame_1, checker_size, corners_1);
     ui->textEdit_value_tilt->setText(QString::number(value_tilt));
 
 }

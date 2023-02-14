@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>1000</height>
+    <height>880</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QLabel" name="ReProjectionImg">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>400</y>
+     <x>50</x>
+     <y>450</y>
      <width>640</width>
      <height>360</height>
     </rect>
@@ -32,8 +32,8 @@
   <widget class="QLabel" name="PointImg">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>20</y>
+     <x>50</x>
+     <y>50</y>
      <width>640</width>
      <height>360</height>
     </rect>
@@ -45,13 +45,39 @@
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="label_14">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>20</y>
+     <width>256</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Detected Point Image&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_15">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>420</y>
+     <width>256</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Reprojection Point Image&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
   <widget class="QSplitter" name="splitter">
    <property name="geometry">
     <rect>
      <x>710</x>
-     <y>10</y>
+     <y>20</y>
      <width>258</width>
-     <height>741</height>
+     <height>791</height>
     </rect>
    </property>
    <property name="orientation">
@@ -296,19 +322,11 @@ p, li { white-space: pre-wrap; }
      </item>
     </layout>
    </widget>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>760</y>
-     <width>151</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Export</string>
-   </property>
+   <widget class="QPushButton" name="ExportButton">
+    <property name="text">
+     <string>Export</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

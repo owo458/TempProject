@@ -16,6 +16,9 @@ public:
     explicit CameraPoseEstimation(QWidget *parent = 0);
     ~CameraPoseEstimation();
 
+private slots:
+    void on_ExportButton_clicked();
+
 private:
     Ui::CameraPoseEstimation *ui;
 };

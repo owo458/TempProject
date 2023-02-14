@@ -11,6 +11,8 @@
 using namespace cv;
 using namespace std;
 
+bool checked = false;
+
 ParameterInput::ParameterInput(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ParameterInput)
@@ -28,109 +30,94 @@ void ParameterInput::on_pushbtn_prev_mesure_clicked()
     this->close();
 }
 
-float g_CarWidth = 0;
-float g_CarHeight = 0;
-float g_CameraToBumper = 0;
-float g_CameraInstallPosition = 0;
-
+double g_CarWidth = 0;
+double g_CarHeight = 0;
+double g_CameraToBumper = 0;
+double g_CameraInstallPosition = 0;
+float g_ChessboardCellSize = 70;
+int g_ChessboardSizeX = 10;
+int g_ChessboardSizeY = 11;
+float g_CarToChessboard_1 = 4.483;
+float g_CarToChessboard_2 = 0;
+string IntrinsicParameterPath;
 
 void ParameterInput::on_pushbtn_next_mesure_clicked()
 {
     this->close();
-
-//    QString S1,S2,S3;
-
-//    S1 = ui->CarWidth->toPlainText();
-//    S2 = ui->CameraHeight->toPlainText();
-//    S3 = ui->CameraToBumper->toPlainText();
-
-//    cout << ui->lineEdit_carWidth << endl;
-
-//    str1 = S1.toStdString();
-//    str2 = S2.toStdString();
-//    str3 = S3.toStdString();
-
-//    float a = stof(str1);
-//    cout << "ParameterInput_CarWidth: "<< str1 << endl;
-//    cout << "ParameterInput_CameraHeight: "<< str2 << endl;
-//    cout << "ParameterInput_CameraToBumper: "<< str3 << endl;
-
-
-    // change to get float directly
-//    ParameterInput::carWidth = ui->lineEdit_carWidth->text().toFloat();
-//    ParameterInput::camHeight = ui->lineEdit_camHeight->text().toFloat();
-//    ParameterInput::camToBumper = ui->lineEdit_camToBumper->text().toFloat();
-//    ParameterInput::camInstallLoc = ui->lineEdit_camInstallLoc->text().toFloat();
-//    cout << carWidth << endl;
-
-
     this->third_dialog = new CaptureImg();
     this->third_dialog->show();
 }
 
-void ParameterInput::on_lineEdit_carWidth_cursorPositionChanged(int arg1, int arg2)
+void ParameterInput::on_lineEdit_CarWidth_cursorPositionChanged(int arg1, int arg2)
 {
     doubleValidator->setNotation(QDoubleValidator::StandardNotation);
-    ui->lineEdit_carWidth->setValidator(doubleValidator);
+    ui->lineEdit_CarWidth->setValidator(doubleValidator);
+    g_CarWidth = ui->lineEdit_CarWidth->text().toDouble();
 }
 
 
-void ParameterInput::on_lineEdit_carHeight_cursorPositionChanged(int arg1, int arg2)
+void ParameterInput::on_lineEdit_CarHeight_cursorPositionChanged(int arg1, int arg2)
 {
     doubleValidator->setNotation(QDoubleValidator::StandardNotation);
-    ui->lineEdit_carWidth->setValidator(doubleValidator);
+    ui->lineEdit_CarHeight->setValidator(doubleValidator);
+    g_CarHeight = ui->lineEdit_CarHeight->text().toDouble();
 }
 
-void ParameterInput::on_lineEdit_cameraTobumper_cursorPositionChanged(int arg1, int arg2)
+void ParameterInput::on_lineEdit_CameraToBumper_cursorPositionChanged(int arg1, int arg2)
 {
     doubleValidator->setNotation(QDoubleValidator::StandardNotation);
-    ui->lineEdit_carWidth->setValidator(doubleValidator);
+    ui->lineEdit_CameraToBumper->setValidator(doubleValidator);
+    g_CameraToBumper = ui->lineEdit_CameraToBumper->text().toDouble();
 }
 
-void ParameterInput::on_lineEdit_cameraInstallPosition_cursorPositionChanged(int arg1, int arg2)
+void ParameterInput::on_lineEdit_CameraInstallPosition_cursorPositionChanged(int arg1, int arg2)
 {
     doubleValidator->setNotation(QDoubleValidator::StandardNotation);
-    ui->lineEdit_carWidth->setValidator(doubleValidator);
+    ui->lineEdit_CameraInstallPosition->setValidator(doubleValidator);
+    g_CameraInstallPosition = ui->lineEdit_CameraInstallPosition->text().toDouble();
 }
 
-void ParameterInput::on_lineEdit_cellSize_cursorPositionChanged(int arg1, int arg2)
+void ParameterInput::on_lineEdit_ChessboardCellSize_cursorPositionChanged(int arg1, int arg2)
 {
     doubleValidator->setNotation(QDoubleValidator::StandardNotation);
-    ui->lineEdit_carWidth->setValidator(doubleValidator);
+    ui->lineEdit_ChessboardCellSize->setValidator(doubleValidator);
+    g_ChessboardCellSize = ui->lineEdit_ChessboardCellSize->text().toFloat();
 }
 
-void ParameterInput::on_lineEdit_chessboardSizeX_cursorPositionChanged(int arg1, int arg2)
+void ParameterInput::on_lineEdit_ChessboardSizeX_cursorPositionChanged(int arg1, int arg2)
 {
     doubleValidator->setNotation(QDoubleValidator::StandardNotation);
-    ui->lineEdit_carWidth->setValidator(doubleValidator);
+    ui->lineEdit_ChessboardSizeX->setValidator(doubleValidator);
+    g_ChessboardSizeX = ui->lineEdit_ChessboardSizeX->text().toInt();
 }
 
-void ParameterInput::on_lineEdit_chessboardSizeY_cursorPositionChanged(int arg1, int arg2)
+void ParameterInput::on_lineEdit_ChessboardSizeY_cursorPositionChanged(int arg1, int arg2)
 {
     doubleValidator->setNotation(QDoubleValidator::StandardNotation);
-    ui->lineEdit_carWidth->setValidator(doubleValidator);
+    ui->lineEdit_ChessboardSizeY->setValidator(doubleValidator);
+    g_ChessboardSizeY = ui->lineEdit_ChessboardSizeY->text().toInt();
 }
 
-void ParameterInput::on_lineEdit_carTochessboard_1_cursorPositionChanged(int arg1, int arg2)
+void ParameterInput::on_lineEdit_CarToChessboard_1_cursorPositionChanged(int arg1, int arg2)
 {
     doubleValidator->setNotation(QDoubleValidator::StandardNotation);
-    ui->lineEdit_carWidth->setValidator(doubleValidator);
+    ui->lineEdit_CarToChessboard_1->setValidator(doubleValidator);
+    g_CarToChessboard_1 = ui->lineEdit_CarToChessboard_1->text().toFloat();
 }
 
-void ParameterInput::on_lineEdit_carTochessboard_2_cursorPositionChanged(int arg1, int arg2)
+void ParameterInput::on_lineEdit_CarToChessboard_2_cursorPositionChanged(int arg1, int arg2)
 {
     doubleValidator->setNotation(QDoubleValidator::StandardNotation);
-    ui->lineEdit_carWidth->setValidator(doubleValidator);
+    ui->lineEdit_CarToChessboard_2->setValidator(doubleValidator);
+    g_CarToChessboard_2 = ui->lineEdit_CarToChessboard_2->text().toDouble();
 }
 
-
-bool checked = false;
 void ParameterInput::on_pushButton_clicked()
 {
 
     if (checked == false)
     {
-        Mat DescriptionImg = imread("/media/server/WORK/sh_git/TempProject/aaa.png");
+        Mat DescriptionImg = imread("./CameraInstallPositionDescriptionImage.png");
         cv::resize(DescriptionImg,DescriptionImg,Size(500,250));
         cvtColor(DescriptionImg,DescriptionImg,COLOR_BGR2RGB);
 
@@ -152,7 +139,8 @@ void ParameterInput::on_pushButton_clicked()
 
 void ParameterInput::on_pushButton_2_clicked()
 {
-    QString dir = QFileDialog::getOpenFileName(this,"파일선택","/","Files(*.*)");
-    qDebug() << dir;
+    QString Qfilename = QFileDialog::getOpenFileName(this,"파일선택","./","Files(*.txt)");
+    ui->lineEdit_FileName->setText(Qfilename);
+    IntrinsicParameterPath = Qfilename.toStdString();
 }
 
