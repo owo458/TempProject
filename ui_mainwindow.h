@@ -16,7 +16,6 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
@@ -31,33 +30,28 @@ public:
     QPushButton *pushbtn_extrinsic;
     QLabel *LogoImg;
     QStatusBar *statusBar;
-    QMenuBar *menuBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1005, 518);
+        MainWindow->resize(1000, 550);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         pushbtn_intrinsic = new QPushButton(centralWidget);
         pushbtn_intrinsic->setObjectName(QStringLiteral("pushbtn_intrinsic"));
-        pushbtn_intrinsic->setGeometry(QRect(30, 300, 450, 150));
+        pushbtn_intrinsic->setGeometry(QRect(30, 450, 450, 70));
         pushbtn_extrinsic = new QPushButton(centralWidget);
         pushbtn_extrinsic->setObjectName(QStringLiteral("pushbtn_extrinsic"));
-        pushbtn_extrinsic->setGeometry(QRect(520, 300, 450, 150));
+        pushbtn_extrinsic->setGeometry(QRect(520, 450, 450, 70));
         LogoImg = new QLabel(centralWidget);
         LogoImg->setObjectName(QStringLiteral("LogoImg"));
-        LogoImg->setGeometry(QRect(290, 30, 480, 250));
+        LogoImg->setGeometry(QRect(169, 30, 791, 381));
         LogoImg->setStyleSheet(QStringLiteral(""));
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
-        menuBar = new QMenuBar(MainWindow);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1005, 20));
-        MainWindow->setMenuBar(menuBar);
 
         retranslateUi(MainWindow);
 
