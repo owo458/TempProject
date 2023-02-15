@@ -27,34 +27,47 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    checkcamerainstallation.cpp \
-    cameraposeestimation.cpp \
-    captureimg.cpp \
-    parameterinput.cpp \
-    intrinsic_param.cpp \
-    intrinsic_param_calculate.cpp \
+        code/main.cpp \
+        code/mainwindow.cpp \
+    code/checkcamerainstallation.cpp \
+    code/cameraposeestimation.cpp \
+    code/captureimg.cpp \
+    code/parameterinput.cpp \
+    code/intrinsic_param.cpp \
+    code/intrinsic_param_calculate.cpp \
 
 
 
 
 HEADERS += \
-        mainwindow.h \
-    checkcamerainstallation.h \
-    cameraposeestimation.h \
-    parameterinput.h \
-    captureimg.h \
-    intrinsic_param.h \
-    intrinsic_param_calculate.h \
+        code/mainwindow.h \
+    code/checkcamerainstallation.h \
+    code/cameraposeestimation.h \
+    code/parameterinput.h \
+    code/captureimg.h \
+    code/intrinsic_param.h \
+    code/intrinsic_param_calculate.h \
 
 
 FORMS += \
-        mainwindow.ui \
-    cameraposeestimation.ui \
-    captureimg.ui \
-    parameterinput.ui \
-    intrinsic_param.ui
+        code/mainwindow.ui \
+    code/cameraposeestimation.ui \
+    code/captureimg.ui \
+    code/parameterinput.ui \
+    code/intrinsic_param.ui
+
+
+RCC_DIR = "build\RCCFiles"
+UI_DIR = "build\UICFiles"
+MOC_DIR = "build\MOCFiles"
+OBJECTS_DIR = "build\ObjFiles"
+
+#CONFIG(debug, debug|release) {
+#    DESTDIR = build/debug
+#} else {
+#    DESTDIR = build/release
+#}
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
