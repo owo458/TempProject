@@ -1,13 +1,6 @@
 #include "parameterinput.h"
 #include "ui_parameterinput.h"
 
-
-#include <stdio.h>
-#include <string>
-#include <glob.h>
-#include <QFileDialog>
-#include <QDebug>
-
 using namespace cv;
 using namespace std;
 
@@ -25,7 +18,7 @@ ParameterInput::~ParameterInput()
     delete ui;
 }
 
-void ParameterInput::on_pushbtn_prev_mesure_clicked()
+void ParameterInput::on_pushButton_Prev_clicked()
 {
     this->close();
 }
@@ -41,9 +34,8 @@ float g_CarToChessboard_1 = 4.483;
 float g_CarToChessboard_2 = 0;
 string IntrinsicParameterPath;
 
-void ParameterInput::on_pushbtn_next_mesure_clicked()
+void ParameterInput::on_pushButton_Next_clicked()
 {
-    this->close();
     this->third_dialog = new CaptureImg();
     this->third_dialog->show();
 }
@@ -112,7 +104,7 @@ void ParameterInput::on_lineEdit_CarToChessboard_2_cursorPositionChanged(int arg
     g_CarToChessboard_2 = ui->lineEdit_CarToChessboard_2->text().toDouble();
 }
 
-void ParameterInput::on_pushButton_clicked()
+void ParameterInput::on_pushButton_Description_clicked()
 {
 
     if (checked == false)
@@ -128,7 +120,8 @@ void ParameterInput::on_pushButton_clicked()
     }
     else
     {
-        Mat TestImg = Mat::zeros(1000,1000,CV_32SC1);
+        //Mat TestImg = Mat::zeros(1000,1000,CV_32SC1);
+        Mat TestImg(Size(1000,1000),CV_8UC3,Scalar(239, 235, 231));
         QImage qt_TestImg;
         qt_TestImg = QImage((const unsigned char*) (TestImg.data), TestImg.cols, TestImg.rows, QImage::Format_RGB888);
         ui->PointImg->setPixmap(QPixmap::fromImage(qt_TestImg));
@@ -137,7 +130,7 @@ void ParameterInput::on_pushButton_clicked()
 
 }
 
-void ParameterInput::on_pushButton_2_clicked()
+void ParameterInput::on_pushButton_Load_clicked()
 {
     QString Qfilename = QFileDialog::getOpenFileName(this,"파일선택","./","Files(*.txt)");
     ui->lineEdit_FileName->setText(Qfilename);

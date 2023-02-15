@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Capture Image</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pushButton_Prev">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -26,7 +26,7 @@
     <string>&lt; Prev</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="pushButton_Next">
    <property name="geometry">
     <rect>
      <x>510</x>
@@ -39,7 +39,7 @@
     <string>Next &gt;</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_image">
+  <widget class="QLabel" name="label_CameraOutput">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -98,7 +98,7 @@ p, li { white-space: pre-wrap; }
     <string>capture_2</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_image_mini_1">
+  <widget class="QLabel" name="label_Capture_1">
    <property name="geometry">
     <rect>
      <x>1000</x>
@@ -114,7 +114,7 @@ p, li { white-space: pre-wrap; }
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_image_mini_2">
+  <widget class="QLabel" name="label_Capture_2">
    <property name="geometry">
     <rect>
      <x>1000</x>
@@ -194,7 +194,7 @@ p, li { white-space: pre-wrap; }
     <string>Roll</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="pushButton_CalculationTilt">
    <property name="geometry">
     <rect>
      <x>1020</x>
@@ -207,19 +207,19 @@ p, li { white-space: pre-wrap; }
     <string>Tilt</string>
    </property>
   </widget>
-  <zorder>label_image</zorder>
-  <zorder>pushButton</zorder>
-  <zorder>pushButton_2</zorder>
+  <zorder>label_CameraOutput</zorder>
+  <zorder>pushButton_Prev</zorder>
+  <zorder>pushButton_Next</zorder>
   <zorder>textEdit_value</zorder>
   <zorder>pushButton_capture_1</zorder>
   <zorder>pushButton_capture_2</zorder>
-  <zorder>label_image_mini_1</zorder>
-  <zorder>label_image_mini_2</zorder>
+  <zorder>label_Capture_1</zorder>
+  <zorder>label_Capture_2</zorder>
   <zorder>textEdit_value_roll_1</zorder>
   <zorder>textEdit_value_tilt</zorder>
   <zorder>textEdit_value_roll_2</zorder>
   <zorder>label</zorder>
-  <zorder>pushButton_3</zorder>
+  <zorder>pushButton_CalculationTilt</zorder>
  </widget>
  <resources/>
  <connections/>

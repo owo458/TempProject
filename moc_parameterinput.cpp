@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ParameterInput_t {
     QByteArrayData data[17];
-    char stringdata0[583];
+    char stringdata0[590];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,26 +30,26 @@ struct qt_meta_stringdata_ParameterInput_t {
 static const qt_meta_stringdata_ParameterInput_t qt_meta_stringdata_ParameterInput = {
     {
 QT_MOC_LITERAL(0, 0, 14), // "ParameterInput"
-QT_MOC_LITERAL(1, 15, 30), // "on_pushbtn_prev_mesure_clicked"
-QT_MOC_LITERAL(2, 46, 0), // ""
-QT_MOC_LITERAL(3, 47, 30), // "on_pushbtn_next_mesure_clicked"
-QT_MOC_LITERAL(4, 78, 42), // "on_lineEdit_CarWidth_cursorPo..."
-QT_MOC_LITERAL(5, 121, 4), // "arg1"
-QT_MOC_LITERAL(6, 126, 4), // "arg2"
-QT_MOC_LITERAL(7, 131, 43), // "on_lineEdit_CarHeight_cursorP..."
-QT_MOC_LITERAL(8, 175, 48), // "on_lineEdit_CameraToBumper_cu..."
-QT_MOC_LITERAL(9, 224, 55), // "on_lineEdit_CameraInstallPosi..."
-QT_MOC_LITERAL(10, 280, 52), // "on_lineEdit_ChessboardCellSiz..."
-QT_MOC_LITERAL(11, 333, 49), // "on_lineEdit_ChessboardSizeX_c..."
-QT_MOC_LITERAL(12, 383, 49), // "on_lineEdit_ChessboardSizeY_c..."
-QT_MOC_LITERAL(13, 433, 51), // "on_lineEdit_CarToChessboard_1..."
-QT_MOC_LITERAL(14, 485, 51), // "on_lineEdit_CarToChessboard_2..."
-QT_MOC_LITERAL(15, 537, 21), // "on_pushButton_clicked"
-QT_MOC_LITERAL(16, 559, 23) // "on_pushButton_2_clicked"
+QT_MOC_LITERAL(1, 15, 26), // "on_pushButton_Prev_clicked"
+QT_MOC_LITERAL(2, 42, 0), // ""
+QT_MOC_LITERAL(3, 43, 26), // "on_pushButton_Next_clicked"
+QT_MOC_LITERAL(4, 70, 42), // "on_lineEdit_CarWidth_cursorPo..."
+QT_MOC_LITERAL(5, 113, 4), // "arg1"
+QT_MOC_LITERAL(6, 118, 4), // "arg2"
+QT_MOC_LITERAL(7, 123, 43), // "on_lineEdit_CarHeight_cursorP..."
+QT_MOC_LITERAL(8, 167, 48), // "on_lineEdit_CameraToBumper_cu..."
+QT_MOC_LITERAL(9, 216, 55), // "on_lineEdit_CameraInstallPosi..."
+QT_MOC_LITERAL(10, 272, 52), // "on_lineEdit_ChessboardCellSiz..."
+QT_MOC_LITERAL(11, 325, 49), // "on_lineEdit_ChessboardSizeX_c..."
+QT_MOC_LITERAL(12, 375, 49), // "on_lineEdit_ChessboardSizeY_c..."
+QT_MOC_LITERAL(13, 425, 51), // "on_lineEdit_CarToChessboard_1..."
+QT_MOC_LITERAL(14, 477, 51), // "on_lineEdit_CarToChessboard_2..."
+QT_MOC_LITERAL(15, 529, 33), // "on_pushButton_Description_cli..."
+QT_MOC_LITERAL(16, 563, 26) // "on_pushButton_Load_clicked"
 
     },
-    "ParameterInput\0on_pushbtn_prev_mesure_clicked\0"
-    "\0on_pushbtn_next_mesure_clicked\0"
+    "ParameterInput\0on_pushButton_Prev_clicked\0"
+    "\0on_pushButton_Next_clicked\0"
     "on_lineEdit_CarWidth_cursorPositionChanged\0"
     "arg1\0arg2\0on_lineEdit_CarHeight_cursorPositionChanged\0"
     "on_lineEdit_CameraToBumper_cursorPositionChanged\0"
@@ -59,7 +59,8 @@ QT_MOC_LITERAL(16, 559, 23) // "on_pushButton_2_clicked"
     "on_lineEdit_ChessboardSizeY_cursorPositionChanged\0"
     "on_lineEdit_CarToChessboard_1_cursorPositionChanged\0"
     "on_lineEdit_CarToChessboard_2_cursorPositionChanged\0"
-    "on_pushButton_clicked\0on_pushButton_2_clicked"
+    "on_pushButton_Description_clicked\0"
+    "on_pushButton_Load_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -115,8 +116,8 @@ void ParameterInput::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         ParameterInput *_t = static_cast<ParameterInput *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_pushbtn_prev_mesure_clicked(); break;
-        case 1: _t->on_pushbtn_next_mesure_clicked(); break;
+        case 0: _t->on_pushButton_Prev_clicked(); break;
+        case 1: _t->on_pushButton_Next_clicked(); break;
         case 2: _t->on_lineEdit_CarWidth_cursorPositionChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 3: _t->on_lineEdit_CarHeight_cursorPositionChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 4: _t->on_lineEdit_CameraToBumper_cursorPositionChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
@@ -126,8 +127,8 @@ void ParameterInput::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 8: _t->on_lineEdit_ChessboardSizeY_cursorPositionChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 9: _t->on_lineEdit_CarToChessboard_1_cursorPositionChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 10: _t->on_lineEdit_CarToChessboard_2_cursorPositionChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 11: _t->on_pushButton_clicked(); break;
-        case 12: _t->on_pushButton_2_clicked(); break;
+        case 11: _t->on_pushButton_Description_clicked(); break;
+        case 12: _t->on_pushButton_Load_clicked(); break;
         default: ;
         }
     }

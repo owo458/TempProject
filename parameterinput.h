@@ -6,6 +6,11 @@
 #include <QWidget>
 #include <QString>
 #include <QDoubleValidator>
+#include <QFileDialog>
+#include <stdio.h>
+#include <string>
+#include <glob.h>
+
 
 namespace Ui {
 class ParameterInput;
@@ -21,8 +26,9 @@ public:
 
 
 private slots:
-    void on_pushbtn_prev_mesure_clicked();
-    void on_pushbtn_next_mesure_clicked();
+    void on_pushButton_Prev_clicked();
+
+    void on_pushButton_Next_clicked();
 
     void on_lineEdit_CarWidth_cursorPositionChanged(int arg1, int arg2);
 
@@ -42,9 +48,9 @@ private slots:
 
     void on_lineEdit_CarToChessboard_2_cursorPositionChanged(int arg1, int arg2);
 
-    void on_pushButton_clicked();
+    void on_pushButton_Description_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_pushButton_Load_clicked();
 
 private:
     Ui::ParameterInput *ui;

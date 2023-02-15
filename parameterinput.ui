@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>ParameterInput</string>
   </property>
-  <widget class="QPushButton" name="pushbtn_prev_mesure">
+  <widget class="QPushButton" name="pushButton_Prev">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -26,7 +26,7 @@
     <string>&lt; Prev</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushbtn_next_mesure">
+  <widget class="QPushButton" name="pushButton_Next">
    <property name="geometry">
     <rect>
      <x>520</x>
@@ -42,14 +42,14 @@
   <widget class="QLabel" name="PointImg">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>10</y>
-     <width>480</width>
-     <height>250</height>
+     <x>520</x>
+     <y>9</y>
+     <width>450</width>
+     <height>258</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(0, 0, 0);</string>
+    <string notr="true">background-color: rgb(239, 235, 231);</string>
    </property>
    <property name="text">
     <string/>
@@ -60,7 +60,7 @@
     <rect>
      <x>30</x>
      <y>10</y>
-     <width>471</width>
+     <width>451</width>
      <height>257</height>
     </rect>
    </property>
@@ -101,7 +101,7 @@
        <string/>
       </property>
       <property name="placeholderText">
-       <string notr="true">Cam to target_1 (m)</string>
+       <string notr="true">Cam to target_1(m)</string>
       </property>
      </widget>
     </item>
@@ -126,7 +126,7 @@
      </widget>
     </item>
     <item row="3" column="2">
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="pushButton_Description">
       <property name="text">
        <string>Description</string>
       </property>
@@ -145,14 +145,14 @@
     <item row="1" column="0">
      <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>Camera Height                      (m)</string>
+       <string>Camera Height                   (m)</string>
       </property>
      </widget>
     </item>
     <item row="6" column="0">
      <widget class="QLabel" name="label_4">
       <property name="text">
-       <string>Chessboard Cell Size          (mm)</string>
+       <string>Chessboard Cell Size       (mm)</string>
       </property>
      </widget>
     </item>
@@ -169,7 +169,7 @@
     <item row="8" column="0">
      <widget class="QLabel" name="label_8">
       <property name="text">
-       <string>Chessboard Distance            (m)</string>
+       <string>Chessboard Distance         (m)</string>
       </property>
      </widget>
     </item>
@@ -186,7 +186,7 @@
     <item row="2" column="0">
      <widget class="QLabel" name="label_3">
       <property name="text">
-       <string>Camera to bumper                (m)</string>
+       <string>Camera to bumper             (m)</string>
       </property>
      </widget>
     </item>
@@ -203,14 +203,14 @@
     <item row="3" column="0">
      <widget class="QLabel" name="label_6">
       <property name="text">
-       <string>Camera Install Position       (mm)</string>
+       <string>Camera Install Position    (mm)</string>
       </property>
      </widget>
     </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label_9">
       <property name="text">
-       <string>Car width                               (m)</string>
+       <string>Car width                            (m)</string>
       </property>
      </widget>
     </item>
@@ -229,12 +229,12 @@
        <string/>
       </property>
       <property name="placeholderText">
-       <string notr="true">Txt path</string>
+       <string notr="true">Text file path</string>
       </property>
      </widget>
     </item>
     <item row="4" column="1" colspan="2">
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="pushButton_Load">
       <property name="text">
        <string>Load</string>
       </property>
@@ -249,6 +249,27 @@
     </item>
    </layout>
   </widget>
+  <widget class="QLabel" name="Background">
+   <property name="geometry">
+    <rect>
+     <x>19</x>
+     <y>9</y>
+     <width>951</width>
+     <height>281</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(239, 235, 231);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <zorder>Background</zorder>
+  <zorder>pushButton_Prev</zorder>
+  <zorder>pushButton_Next</zorder>
+  <zorder>PointImg</zorder>
+  <zorder>layoutWidget</zorder>
  </widget>
  <tabstops>
   <tabstop>lineEdit_CarWidth</tabstop>
@@ -260,10 +281,10 @@
   <tabstop>lineEdit_ChessboardSizeY</tabstop>
   <tabstop>lineEdit_CarToChessboard_1</tabstop>
   <tabstop>lineEdit_CarToChessboard_2</tabstop>
-  <tabstop>pushbtn_prev_mesure</tabstop>
-  <tabstop>pushbtn_next_mesure</tabstop>
-  <tabstop>pushButton</tabstop>
-  <tabstop>pushButton_2</tabstop>
+  <tabstop>pushButton_Prev</tabstop>
+  <tabstop>pushButton_Next</tabstop>
+  <tabstop>pushButton_Description</tabstop>
+  <tabstop>pushButton_Load</tabstop>
  </tabstops>
  <resources/>
  <connections/>

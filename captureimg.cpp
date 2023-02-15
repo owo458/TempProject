@@ -1,8 +1,5 @@
 #include "captureimg.h"
 #include "ui_captureimg.h"
-#include <stdio.h>
-#include <QMessageBox>
-
 #include "checkcamerainstallation.h"
 
 using namespace cv;
@@ -37,9 +34,11 @@ CaptureImg::CaptureImg(QWidget *parent) :
 
 CaptureImg::~CaptureImg()
 {
+
     disconnect(timer, &QTimer::timeout, this, &CaptureImg::update_window);
     cap.release();
     delete ui;
+    this->close();
 }
 
 void CaptureImg::update_window()
@@ -62,13 +61,13 @@ void CaptureImg::update_window()
     cv::resize(image_input, frame_display, cv::Size(960, 540));
 
     qt_image = QImage((const unsigned char*) (frame_display.data), frame_display.cols, frame_display.rows, QImage::Format_RGB888);
-    ui->label_image->setPixmap(QPixmap::fromImage(qt_image));
+    ui->label_CameraOutput->setPixmap(QPixmap::fromImage(qt_image));
 
     qt_image_mini_1 = QImage((const unsigned char*) (CaptureImg::frame_display_mini_1.data), MINI_IMG_W, MINI_IMG_H, QImage::Format_RGB888);
-    ui->label_image_mini_1->setPixmap(QPixmap::fromImage(qt_image_mini_1));
+    ui->label_Capture_1->setPixmap(QPixmap::fromImage(qt_image_mini_1));
 
     qt_image_mini_2 = QImage((const unsigned char*) (CaptureImg::frame_display_mini_2.data), MINI_IMG_W, MINI_IMG_H, QImage::Format_RGB888);
-    ui->label_image_mini_2->setPixmap(QPixmap::fromImage(qt_image_mini_2));
+    ui->label_Capture_2->setPixmap(QPixmap::fromImage(qt_image_mini_2));
 
 }
 
@@ -116,18 +115,12 @@ void CaptureImg::on_pushButton_capture_2_clicked(bool capture_checked_2)
     cv::resize(tmpFrame_2, frame_display_mini_2, cv::Size(MINI_IMG_W, MINI_IMG_H));
 }
 
-void CaptureImg::on_pushButton_2_clicked()
-{
-    this->close();
-    this->fore_dialog = new CameraPoseEstimation();
-    this->fore_dialog->show();
-}
 
-void CaptureImg::on_pushButton_3_clicked()
+void CaptureImg::on_pushButton_CalculationTilt_clicked()
 {
     if (tmpFrame_1.empty() == 0 && tmpFrame_2.empty() == 0 && foundchessboard == true)
     {
-        CaptureImg::tilt_by_checkered(tmpFrame_1, tmpFrame_2, checker_size, corners_1, corners_2, &value_tilt);
+        CaptureImg::tilt_by_checkered(checker_size, corners_1, corners_2, &value_tilt);
     }
     else
     {
@@ -138,4 +131,29 @@ void CaptureImg::on_pushButton_3_clicked()
     }
     ui->textEdit_value_tilt->setText(QString::number(value_tilt));
 
+}
+
+void CaptureImg::closeEvent (QCloseEvent *event)
+{
+    disconnect(timer, &QTimer::timeout, this, &CaptureImg::update_window);
+    cap.release();
+    CameraPoseCapture_1.release();
+    CameraPoseCapture_2.release();
+    this->close();
+}
+
+void CaptureImg::on_pushButton_Prev_clicked()
+{
+    CameraPoseCapture_1.release();
+    CameraPoseCapture_2.release();
+    disconnect(timer, &QTimer::timeout, this, &CaptureImg::update_window);
+    cap.release();
+    this->close();
+}
+
+void CaptureImg::on_pushButton_Next_clicked()
+{
+    //this->close();
+    this->fore_dialog = new CameraPoseEstimation();
+    this->fore_dialog->show();
 }

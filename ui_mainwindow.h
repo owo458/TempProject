@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -28,6 +29,7 @@ public:
     QWidget *centralWidget;
     QPushButton *pushbtn_intrinsic;
     QPushButton *pushbtn_extrinsic;
+    QLabel *LogoImg;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
 
@@ -44,6 +46,10 @@ public:
         pushbtn_extrinsic = new QPushButton(centralWidget);
         pushbtn_extrinsic->setObjectName(QStringLiteral("pushbtn_extrinsic"));
         pushbtn_extrinsic->setGeometry(QRect(520, 300, 450, 150));
+        LogoImg = new QLabel(centralWidget);
+        LogoImg->setObjectName(QStringLiteral("LogoImg"));
+        LogoImg->setGeometry(QRect(290, 30, 480, 250));
+        LogoImg->setStyleSheet(QStringLiteral(""));
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -63,6 +69,7 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         pushbtn_intrinsic->setText(QApplication::translate("MainWindow", "Intrinsic Calibration", 0));
         pushbtn_extrinsic->setText(QApplication::translate("MainWindow", "Extrinsic Calibration", 0));
+        LogoImg->setText(QString());
     } // retranslateUi
 
 };

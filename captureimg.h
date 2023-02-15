@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QTimer>
 #include <QString>
+#include <stdio.h>
+#include <QMessageBox>
 
 #include "opencv4/opencv2/opencv.hpp"
 #include "opencv4/opencv2/imgproc/imgproc.hpp"
@@ -54,13 +56,17 @@ public:
 private slots:
     void update_window();
 
-    void on_pushButton_2_clicked();
+    void on_pushButton_Prev_clicked();
+
+    void on_pushButton_Next_clicked();
 
     void on_pushButton_capture_1_clicked(bool checked);
 
     void on_pushButton_capture_2_clicked(bool checked);
 
-    void on_pushButton_3_clicked();
+    void on_pushButton_CalculationTilt_clicked();
+
+    void closeEvent (QCloseEvent *event);
 
 private:
     Ui::CaptureImg *ui;
@@ -145,7 +151,7 @@ private:
         return mm_in_one_pixcel;
     }
 
-    void tilt_by_checkered(cv::Mat capture_img_1, cv::Mat capture_img_2, cv::Size inner_checker_size, vector<cv::Point2f> corners_1, vector<cv::Point2f>corners_2, float *tilt)
+    void tilt_by_checkered(cv::Size inner_checker_size, vector<cv::Point2f> corners_1, vector<cv::Point2f>corners_2, float *tilt)
     {
           // 이미지 두개를 이용하여 틸트 계산
         // RX = 두 체스보드 간 거리

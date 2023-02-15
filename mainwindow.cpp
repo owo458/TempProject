@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QPixmap pixmap("./Logo.png");
+    QPixmap fitpixmap=pixmap.scaled(500, 250, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    ui->LogoImg->setPixmap(fitpixmap);
 }
 
 MainWindow::~MainWindow()
