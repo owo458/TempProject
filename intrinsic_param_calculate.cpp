@@ -56,10 +56,13 @@ int intrinsic_param_calculate::interCameraCalibration(int* chess_pattern)
   {
     frame = m_matImages[i].clone();
     cv::cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
-    success = cv::findChessboardCorners(gray, cv::Size(chess_pattern[0], chess_pattern[1]), corner_pts, CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FAST_CHECK | CV_CALIB_CB_NORMALIZE_IMAGE);
+    success = cv::findChessboardCorners(gray, cv::Size(chess_pattern[0], chess_pattern[1]), corner_pts);
     if (success)
     {
-      cv::TermCriteria criteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.001);
+
+      //cv::TermCriteria criteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.001);
+      cv::TermCriteria criteria(cv::TermCriteria::EPS + cv::TermCriteria::COUNT,100,0.001);
+
       cv::cornerSubPix(gray, corner_pts, cv::Size(11, 11), cv::Size(-1, -1), criteria);
       cv::drawChessboardCorners(frame, cv::Size(chess_pattern[0], chess_pattern[1]), corner_pts, success);
       m_objpoints.push_back(objp);
@@ -135,7 +138,7 @@ double intrinsic_param_calculate::computeReprojectionErrors()
   {
     projectPoints(cv::Mat(m_objpoints[i]), m_R[i], m_T[i],
                   m_cameraMatrix, m_distCoeffs, imagePoints2);
-    err = cv::norm(cv::Mat(m_imgpoints[i]), cv::Mat(imagePoints2), CV_L2);
+    err = cv::norm(cv::Mat(m_imgpoints[i]), cv::Mat(imagePoints2), cv::NORM_L2);
     int n = (int)m_objpoints[i].size();
     m_reprojErrs[i] = (float)std::sqrt(err * err / n);
     totalErr += err * err;

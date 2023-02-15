@@ -29,6 +29,7 @@ extern int g_ChessboardSizeX;
 extern int g_ChessboardSizeY;
 extern float g_CarToChessboard_1;
 extern float g_CarToChessboard_2;
+extern int g_CameraNumber;
 
 //#define CHECKER_COLS (10)
 //#define CHECKER_ROWS (7)
@@ -90,7 +91,7 @@ private:
     float value_roll_1 = 0, value_roll_2= 0, value_tilt= 0;
 
     vector<cv::Point2f> corners_1, corners_2;
-    cv::Size checker_size = cv::Size(g_ChessboardSizeX-1, g_ChessboardSizeY-1);
+    cv::Size checker_size = cv::Size(g_ChessboardSizeX, g_ChessboardSizeY);
 
 
     void findChessboard(cv::Mat input_img, cv::Size checker_size, vector<cv::Point2f> *corners,bool *found)

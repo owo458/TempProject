@@ -4,7 +4,8 @@
 using namespace cv;
 using namespace std;
 
-bool checked = false;
+bool checked_1 = false;
+bool checked_2 = false;
 
 ParameterInput::ParameterInput(QWidget *parent) :
     QWidget(parent),
@@ -28,16 +29,32 @@ double g_CarHeight = 0;
 double g_CameraToBumper = 0;
 double g_CameraInstallPosition = 0;
 float g_ChessboardCellSize = 70;
-int g_ChessboardSizeX = 10;
-int g_ChessboardSizeY = 11;
+int g_ChessboardSizeX = 9;
+int g_ChessboardSizeY = 10;
 float g_CarToChessboard_1 = 4.483;
 float g_CarToChessboard_2 = 0;
+int g_CameraNumber = 0;
 string IntrinsicParameterPath;
 
 void ParameterInput::on_pushButton_Next_clicked()
 {
-    this->third_dialog = new CaptureImg();
-    this->third_dialog->show();
+    cv::VideoCapture cap;
+
+    cap.open(g_CameraNumber);
+    if(!cap.isOpened())
+    {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Camera Error     ");
+        msgBox.setText("Not Detection Camera     ");
+        msgBox.exec();
+    }
+    else
+    {
+        cap.release();
+        this->third_dialog = new CaptureImg();
+        this->third_dialog->show();
+    }
+
 }
 
 void ParameterInput::on_lineEdit_CarWidth_cursorPositionChanged(int arg1, int arg2)
@@ -104,28 +121,27 @@ void ParameterInput::on_lineEdit_CarToChessboard_2_cursorPositionChanged(int arg
     g_CarToChessboard_2 = ui->lineEdit_CarToChessboard_2->text().toDouble();
 }
 
-void ParameterInput::on_pushButton_Description_clicked()
+void ParameterInput::on_pushButton_CameraInstallDescription_clicked()
 {
 
-    if (checked == false)
+    if (checked_1 == false)
     {
         Mat DescriptionImg = imread("./CameraInstallPositionDescriptionImage.png");
-        cv::resize(DescriptionImg,DescriptionImg,Size(500,250));
+        cv::resize(DescriptionImg,DescriptionImg,Size(400,250));
         cvtColor(DescriptionImg,DescriptionImg,COLOR_BGR2RGB);
 
         QImage qt_DescriptionImg;
         qt_DescriptionImg = QImage((const unsigned char*) (DescriptionImg.data), DescriptionImg.cols, DescriptionImg.rows, QImage::Format_RGB888);
-        ui->PointImg->setPixmap(QPixmap::fromImage(qt_DescriptionImg));
-        checked=true;
+        ui->DescriptionImg_1->setPixmap(QPixmap::fromImage(qt_DescriptionImg));
+        checked_1=true;
     }
     else
     {
-        //Mat TestImg = Mat::zeros(1000,1000,CV_32SC1);
         Mat TestImg(Size(1000,1000),CV_8UC3,Scalar(239, 235, 231));
         QImage qt_TestImg;
         qt_TestImg = QImage((const unsigned char*) (TestImg.data), TestImg.cols, TestImg.rows, QImage::Format_RGB888);
-        ui->PointImg->setPixmap(QPixmap::fromImage(qt_TestImg));
-        checked=false;
+        ui->DescriptionImg_1->setPixmap(QPixmap::fromImage(qt_TestImg));
+        checked_1=false;
     }
 
 }
@@ -137,3 +153,27 @@ void ParameterInput::on_pushButton_Load_clicked()
     IntrinsicParameterPath = Qfilename.toStdString();
 }
 
+
+void ParameterInput::on_pushButton_ChessboardPointSizeDescription_clicked()
+{
+    if (checked_2 == false)
+    {
+        Mat DescriptionImg = imread("./crop_Chess.png");
+        cv::resize(DescriptionImg,DescriptionImg,Size(400,150));
+        cvtColor(DescriptionImg,DescriptionImg,COLOR_BGR2RGB);
+
+        QImage qt_DescriptionImg;
+        qt_DescriptionImg = QImage((const unsigned char*) (DescriptionImg.data), DescriptionImg.cols, DescriptionImg.rows, QImage::Format_RGB888);
+        ui->DescriptionImg_2->setPixmap(QPixmap::fromImage(qt_DescriptionImg));
+        checked_2=true;
+    }
+    else
+    {
+        //Mat TestImg = Mat::zeros(1000,1000,CV_32SC1);
+        Mat TestImg(Size(1000,1000),CV_8UC3,Scalar(239, 235, 231));
+        QImage qt_TestImg;
+        qt_TestImg = QImage((const unsigned char*) (TestImg.data), TestImg.cols, TestImg.rows, QImage::Format_RGB888);
+        ui->DescriptionImg_2->setPixmap(QPixmap::fromImage(qt_TestImg));
+        checked_2=false;
+    }
+}

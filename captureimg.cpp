@@ -17,7 +17,7 @@ CaptureImg::CaptureImg(QWidget *parent) :
 
     timer = new QTimer(this);
 
-    cap.open(0);
+    cap.open(g_CameraNumber);
 
     if(!cap.isOpened())
     {

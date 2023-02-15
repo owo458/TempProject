@@ -13,11 +13,11 @@ intrinsic_param::intrinsic_param(QWidget *parent) :
     QImage *Img = new QImage();
     QPixmap *buffer = new QPixmap();
 
-    if(Img->load("/home/eintelligence/qt/TempProject/inCalImg.png"))
+    if(Img->load("./inCalImg.png"))
     {
         *buffer = QPixmap::fromImage(*Img);
         //*buffer = buffer->scaled(Img->width(),Img->height());
-        *buffer = buffer->scaled(800, 250);
+        *buffer = buffer->scaled(800, 259.710144928);
     }
     else
     {

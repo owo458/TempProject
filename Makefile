@@ -53,20 +53,24 @@ SOURCES       = main.cpp \
 		checkcamerainstallation.cpp \
 		cameraposeestimation.cpp \
 		captureimg.cpp \
-		parameterinput.cpp moc_mainwindow.cpp \
+		parameterinput.cpp \
+		intrinsic_param.cpp moc_mainwindow.cpp \
 		moc_cameraposeestimation.cpp \
 		moc_parameterinput.cpp \
-		moc_captureimg.cpp
+		moc_captureimg.cpp \
+		moc_intrinsic_param.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		checkcamerainstallation.o \
 		cameraposeestimation.o \
 		captureimg.o \
 		parameterinput.o \
+		intrinsic_param.o \
 		moc_mainwindow.o \
 		moc_cameraposeestimation.o \
 		moc_parameterinput.o \
-		moc_captureimg.o
+		moc_captureimg.o \
+		moc_intrinsic_param.o
 DIST          = /home/server/Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/common/unix.conf \
 		/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/common/linux.conf \
@@ -220,12 +224,15 @@ DIST          = /home/server/Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		checkcamerainstallation.h \
 		cameraposeestimation.h \
 		parameterinput.h \
-		captureimg.h main.cpp \
+		captureimg.h \
+		intrinsic_param.h \
+		intrinsic_param_calculate.h main.cpp \
 		mainwindow.cpp \
 		checkcamerainstallation.cpp \
 		cameraposeestimation.cpp \
 		captureimg.cpp \
-		parameterinput.cpp
+		parameterinput.cpp \
+		intrinsic_param.cpp
 QMAKE_TARGET  = e_calibration
 DESTDIR       = 
 TARGET        = e_calibration
@@ -234,7 +241,7 @@ TARGET        = e_calibration
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_cameraposeestimation.h ui_captureimg.h ui_parameterinput.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_cameraposeestimation.h ui_captureimg.h ui_parameterinput.h ui_intrinsic_param.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: e_calibration.pro /home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++/qmake.conf /home/server/Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_pre.prf \
@@ -564,9 +571,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h checkcamerainstallation.h cameraposeestimation.h parameterinput.h captureimg.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp checkcamerainstallation.cpp cameraposeestimation.cpp captureimg.cpp parameterinput.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui cameraposeestimation.ui captureimg.ui parameterinput.ui $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h checkcamerainstallation.h cameraposeestimation.h parameterinput.h captureimg.h intrinsic_param.h intrinsic_param_calculate.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp checkcamerainstallation.cpp cameraposeestimation.cpp captureimg.cpp parameterinput.cpp intrinsic_param.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui cameraposeestimation.ui captureimg.ui parameterinput.ui intrinsic_param.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -592,9 +599,9 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_cameraposeestimation.cpp moc_parameterinput.cpp moc_captureimg.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_cameraposeestimation.cpp moc_parameterinput.cpp moc_captureimg.cpp moc_intrinsic_param.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_cameraposeestimation.cpp moc_parameterinput.cpp moc_captureimg.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_cameraposeestimation.cpp moc_parameterinput.cpp moc_captureimg.cpp moc_intrinsic_param.cpp
 moc_mainwindow.cpp: /home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMainWindow \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmainwindow.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -702,10 +709,20 @@ moc_mainwindow.cpp: /home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMainWindo
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QString \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		cameraposeestimation.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QDoubleValidator \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFileDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdir.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfileinfo.h \
+		intrinsic_param.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
 		mainwindow.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/bin/moc
 	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_git/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
@@ -807,6 +824,9 @@ moc_cameraposeestimation.cpp: /home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		cameraposeestimation.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/bin/moc
 	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_git/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include cameraposeestimation.h -o moc_cameraposeestimation.cpp
@@ -913,10 +933,17 @@ moc_parameterinput.cpp: captureimg.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QString \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		cameraposeestimation.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QDoubleValidator \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFileDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdir.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfileinfo.h \
 		parameterinput.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/bin/moc
 	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_git/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include parameterinput.h -o moc_parameterinput.cpp
@@ -1022,16 +1049,128 @@ moc_captureimg.cpp: /home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QString \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		cameraposeestimation.h \
 		captureimg.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/bin/moc
 	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_git/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include captureimg.h -o moc_captureimg.cpp
 
+moc_intrinsic_param.cpp: /home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qglobal.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qconfig.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfeatures.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtypetraits.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qisenum.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qsysinfo.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qlogging.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qflags.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qatomic.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qmutex.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qnumeric.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qversiontagging.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qnamespace.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qobject.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qstring.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qchar.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbytearray.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qrefcount.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qarraydata.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qlist.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qalgorithms.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qiterator.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qpair.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qstringlist.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregexp.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreevent.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qmetatype.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qobject_impl.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qmargins.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qrect.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qsize.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qpoint.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpalette.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qcolor.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qrgb.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qrgba64.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qbrush.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qvector.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qmatrix.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpolygon.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qregion.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdatastream.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qiodevice.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qline.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtransform.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpainterpath.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qimage.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpixelformat.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpixmap.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qshareddata.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qhash.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qcursor.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qkeysequence.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qevent.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qvariant.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qmap.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdebug.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtextstream.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qlocale.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qset.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qurl.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qurlquery.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfile.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfiledevice.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFileDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdir.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfileinfo.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
+		intrinsic_param.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/bin/moc
+	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_git/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include intrinsic_param.h -o moc_intrinsic_param.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_cameraposeestimation.h ui_captureimg.h ui_parameterinput.h
+compiler_uic_make_all: ui_mainwindow.h ui_cameraposeestimation.h ui_captureimg.h ui_parameterinput.h ui_intrinsic_param.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_cameraposeestimation.h ui_captureimg.h ui_parameterinput.h
+	-$(DEL_FILE) ui_mainwindow.h ui_cameraposeestimation.h ui_captureimg.h ui_parameterinput.h ui_intrinsic_param.h
 ui_mainwindow.h: mainwindow.ui \
 		/home/server/Qt5.7.0/5.7/gcc_64/bin/uic
 	/home/server/Qt5.7.0/5.7/gcc_64/bin/uic mainwindow.ui -o ui_mainwindow.h
@@ -1047,6 +1186,10 @@ ui_captureimg.h: captureimg.ui \
 ui_parameterinput.h: parameterinput.ui \
 		/home/server/Qt5.7.0/5.7/gcc_64/bin/uic
 	/home/server/Qt5.7.0/5.7/gcc_64/bin/uic parameterinput.ui -o ui_parameterinput.h
+
+ui_intrinsic_param.h: intrinsic_param.ui \
+		/home/server/Qt5.7.0/5.7/gcc_64/bin/uic
+	/home/server/Qt5.7.0/5.7/gcc_64/bin/uic intrinsic_param.ui -o ui_intrinsic_param.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -1166,20 +1309,27 @@ main.o: main.cpp mainwindow.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QString \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		cameraposeestimation.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QDoubleValidator \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFileDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdir.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfileinfo.h \
+		intrinsic_param.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
@@ -1290,10 +1440,20 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QString \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		cameraposeestimation.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QDoubleValidator \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFileDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdir.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfileinfo.h \
+		intrinsic_param.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
 		ui_mainwindow.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
@@ -1323,6 +1483,8 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMenuBar \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmenubar.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmenu.h \
@@ -1437,15 +1599,21 @@ checkcamerainstallation.o: checkcamerainstallation.cpp checkcamerainstallation.h
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QString \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		cameraposeestimation.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QDoubleValidator \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFileDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdir.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfileinfo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o checkcamerainstallation.o checkcamerainstallation.cpp
 
-cameraposeestimation.o: cameraposeestimation.cpp /home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
+cameraposeestimation.o: cameraposeestimation.cpp captureimg.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qwindowdefs.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qglobal.h \
@@ -1542,12 +1710,13 @@ cameraposeestimation.o: cameraposeestimation.cpp /home/server/Qt5.7.0/5.7/gcc_64
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
-		captureimg.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QString \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		cameraposeestimation.h \
 		ui_cameraposeestimation.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
@@ -1705,6 +1874,9 @@ captureimg.o: captureimg.cpp captureimg.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QString \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		cameraposeestimation.h \
 		ui_captureimg.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
@@ -1751,12 +1923,13 @@ captureimg.o: captureimg.cpp captureimg.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextcursor.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextformat.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		checkcamerainstallation.h \
 		parameterinput.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QDoubleValidator
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QDoubleValidator \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFileDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdir.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfileinfo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o captureimg.o captureimg.cpp
 
 parameterinput.o: parameterinput.cpp parameterinput.h \
@@ -1862,10 +2035,17 @@ parameterinput.o: parameterinput.cpp parameterinput.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QString \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		cameraposeestimation.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QDoubleValidator \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFileDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdir.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfileinfo.h \
 		ui_parameterinput.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
@@ -1912,14 +2092,176 @@ parameterinput.o: parameterinput.cpp parameterinput.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parameterinput.o parameterinput.cpp
+
+intrinsic_param.o: intrinsic_param.cpp intrinsic_param.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qglobal.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qconfig.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfeatures.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtypetraits.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qisenum.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qsysinfo.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qlogging.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qflags.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qatomic.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qmutex.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qnumeric.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qversiontagging.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qnamespace.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qobject.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qstring.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qchar.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbytearray.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qrefcount.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qarraydata.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qlist.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qalgorithms.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qiterator.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qpair.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qstringlist.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregexp.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreevent.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qmetatype.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qobject_impl.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qmargins.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qrect.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qsize.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qpoint.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpalette.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qcolor.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qrgb.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qrgba64.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qbrush.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qvector.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qmatrix.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpolygon.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qregion.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdatastream.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qiodevice.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qline.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtransform.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpainterpath.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qimage.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpixelformat.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpixmap.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qshareddata.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qhash.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qcursor.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qkeysequence.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qevent.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qvariant.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qmap.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdebug.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qtextstream.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qlocale.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qset.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qurl.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qurlquery.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfile.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfiledevice.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFileDialog \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qfiledialog.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdir.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfileinfo.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QDebug
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parameterinput.o parameterinput.cpp
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
+		ui_intrinsic_param.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qicon.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFormLayout \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qformlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLayout \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QProgressBar \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qprogressbar.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTextBrowser \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtextbrowser.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextdocument.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextcursor.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextformat.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTextEdit \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
+		intrinsic_param_calculate.cpp \
+		intrinsic_param_calculate.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o intrinsic_param.o intrinsic_param.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
@@ -1932,6 +2274,9 @@ moc_parameterinput.o: moc_parameterinput.cpp
 
 moc_captureimg.o: moc_captureimg.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_captureimg.o moc_captureimg.cpp
+
+moc_intrinsic_param.o: moc_intrinsic_param.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_intrinsic_param.o moc_intrinsic_param.cpp
 
 ####### Install
 

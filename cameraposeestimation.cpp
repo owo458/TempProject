@@ -48,8 +48,10 @@ CameraPoseEstimation::CameraPoseEstimation(QWidget *parent) :
     else
     {
         rawImg = CameraPoseCapture_1;
+        cvtColor(rawImg,rawImg,COLOR_BGR2RGB);
     }
-
+//    imshow("test",rawImg);
+//    waitKey(0);
     Mat PointDetectionImg;
     Mat resize_PointDetectionImg;
 

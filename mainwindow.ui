@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1005</width>
-    <height>518</height>
+    <width>1000</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>300</y>
+      <y>450</y>
       <width>450</width>
-      <height>150</height>
+      <height>70</height>
      </rect>
     </property>
     <property name="text">
@@ -31,9 +31,9 @@
     <property name="geometry">
      <rect>
       <x>520</x>
-      <y>300</y>
+      <y>450</y>
       <width>450</width>
-      <height>150</height>
+      <height>70</height>
      </rect>
     </property>
     <property name="text">
@@ -43,10 +43,10 @@
    <widget class="QLabel" name="LogoImg">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>169</x>
       <y>30</y>
-      <width>480</width>
-      <height>250</height>
+      <width>791</width>
+      <height>381</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -58,16 +58,6 @@
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1005</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

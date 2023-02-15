@@ -48,9 +48,11 @@ private slots:
 
     void on_lineEdit_CarToChessboard_2_cursorPositionChanged(int arg1, int arg2);
 
-    void on_pushButton_Description_clicked();
+    void on_pushButton_CameraInstallDescription_clicked();
 
     void on_pushButton_Load_clicked();
+
+    void on_pushButton_ChessboardPointSizeDescription_clicked();
 
 private:
     Ui::ParameterInput *ui;

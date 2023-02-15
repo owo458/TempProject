@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ParameterInput_t {
-    QByteArrayData data[17];
-    char stringdata0[590];
+    QByteArrayData data[18];
+    char stringdata0[656];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -44,8 +44,9 @@ QT_MOC_LITERAL(11, 325, 49), // "on_lineEdit_ChessboardSizeX_c..."
 QT_MOC_LITERAL(12, 375, 49), // "on_lineEdit_ChessboardSizeY_c..."
 QT_MOC_LITERAL(13, 425, 51), // "on_lineEdit_CarToChessboard_1..."
 QT_MOC_LITERAL(14, 477, 51), // "on_lineEdit_CarToChessboard_2..."
-QT_MOC_LITERAL(15, 529, 33), // "on_pushButton_Description_cli..."
-QT_MOC_LITERAL(16, 563, 26) // "on_pushButton_Load_clicked"
+QT_MOC_LITERAL(15, 529, 46), // "on_pushButton_CameraInstallDe..."
+QT_MOC_LITERAL(16, 576, 26), // "on_pushButton_Load_clicked"
+QT_MOC_LITERAL(17, 603, 52) // "on_pushButton_ChessboardPoint..."
 
     },
     "ParameterInput\0on_pushButton_Prev_clicked\0"
@@ -59,8 +60,9 @@ QT_MOC_LITERAL(16, 563, 26) // "on_pushButton_Load_clicked"
     "on_lineEdit_ChessboardSizeY_cursorPositionChanged\0"
     "on_lineEdit_CarToChessboard_1_cursorPositionChanged\0"
     "on_lineEdit_CarToChessboard_2_cursorPositionChanged\0"
-    "on_pushButton_Description_clicked\0"
-    "on_pushButton_Load_clicked"
+    "on_pushButton_CameraInstallDescription_clicked\0"
+    "on_pushButton_Load_clicked\0"
+    "on_pushButton_ChessboardPointSizeDescription_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -70,7 +72,7 @@ static const uint qt_meta_data_ParameterInput[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -78,19 +80,20 @@ static const uint qt_meta_data_ParameterInput[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   79,    2, 0x08 /* Private */,
-       3,    0,   80,    2, 0x08 /* Private */,
-       4,    2,   81,    2, 0x08 /* Private */,
-       7,    2,   86,    2, 0x08 /* Private */,
-       8,    2,   91,    2, 0x08 /* Private */,
-       9,    2,   96,    2, 0x08 /* Private */,
-      10,    2,  101,    2, 0x08 /* Private */,
-      11,    2,  106,    2, 0x08 /* Private */,
-      12,    2,  111,    2, 0x08 /* Private */,
-      13,    2,  116,    2, 0x08 /* Private */,
-      14,    2,  121,    2, 0x08 /* Private */,
-      15,    0,  126,    2, 0x08 /* Private */,
-      16,    0,  127,    2, 0x08 /* Private */,
+       1,    0,   84,    2, 0x08 /* Private */,
+       3,    0,   85,    2, 0x08 /* Private */,
+       4,    2,   86,    2, 0x08 /* Private */,
+       7,    2,   91,    2, 0x08 /* Private */,
+       8,    2,   96,    2, 0x08 /* Private */,
+       9,    2,  101,    2, 0x08 /* Private */,
+      10,    2,  106,    2, 0x08 /* Private */,
+      11,    2,  111,    2, 0x08 /* Private */,
+      12,    2,  116,    2, 0x08 /* Private */,
+      13,    2,  121,    2, 0x08 /* Private */,
+      14,    2,  126,    2, 0x08 /* Private */,
+      15,    0,  131,    2, 0x08 /* Private */,
+      16,    0,  132,    2, 0x08 /* Private */,
+      17,    0,  133,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -104,6 +107,7 @@ static const uint qt_meta_data_ParameterInput[] = {
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    5,    6,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    5,    6,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    5,    6,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -127,8 +131,9 @@ void ParameterInput::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 8: _t->on_lineEdit_ChessboardSizeY_cursorPositionChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 9: _t->on_lineEdit_CarToChessboard_1_cursorPositionChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 10: _t->on_lineEdit_CarToChessboard_2_cursorPositionChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 11: _t->on_pushButton_Description_clicked(); break;
+        case 11: _t->on_pushButton_CameraInstallDescription_clicked(); break;
         case 12: _t->on_pushButton_Load_clicked(); break;
+        case 13: _t->on_pushButton_ChessboardPointSizeDescription_clicked(); break;
         default: ;
         }
     }
@@ -159,13 +164,13 @@ int ParameterInput::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 14)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 13;
+        _id -= 14;
     }
     return _id;
 }

@@ -44,8 +44,7 @@ private:
 
         vector<cv::Point2f> allCorner_pts;
         vector<cv::Point2f> chessboardCorner_pts;
-        *foundchessboard = cv::findChessboardCorners(grayImg, cv::Size(ChessboardSize.x - 1, ChessboardSize.y - 1), allCorner_pts);
-
+        *foundchessboard = cv::findChessboardCorners(grayImg, cv::Size(ChessboardSize.x, ChessboardSize.y), allCorner_pts);
         if(*foundchessboard == true)
         {
             cv::TermCriteria criteria(TermCriteria::EPS + TermCriteria::COUNT,100,0.001);
@@ -61,15 +60,15 @@ private:
                 circle(InputImg, allCorner_pts[i], 1, Scalar(255, 0, 0), 5);
 
                   //가로 길이 collect
-                if (i % (ChessboardSize.x - 1) != 0)
+                if (i % (ChessboardSize.x) != 0)
                 {
                     AllcellSize.push_back(abs(allCorner_pts[i].x - allCorner_pts[i - 1].x));
                 }
 
                   //세로 길이 collect
-                if ((i >= (ChessboardSize.x - 1)))
+                if ((i >= (ChessboardSize.x)))
                 {
-                    AllcellSize.push_back(abs(allCorner_pts[i].y - allCorner_pts[i - (ChessboardSize.x-1)].y));
+                    AllcellSize.push_back(abs(allCorner_pts[i].y - allCorner_pts[i - (ChessboardSize.x)].y));
                 }
             }
 
@@ -84,9 +83,9 @@ private:
             putText(InputImg, "ImageCenter", Point((InputImg.cols / 2) +10, (InputImg.rows / 2) + 20), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255), 2);
 
             chessboardCorner_pts.push_back(allCorner_pts[0]);
-            chessboardCorner_pts.push_back(allCorner_pts[ChessboardSize.x-2]);
-            chessboardCorner_pts.push_back(allCorner_pts[(ChessboardSize.x-1)*(ChessboardSize.y-2)]);
-            chessboardCorner_pts.push_back(allCorner_pts[(ChessboardSize.x-1)*(ChessboardSize.y-1)-1]);
+            chessboardCorner_pts.push_back(allCorner_pts[ChessboardSize.x-1]);
+            chessboardCorner_pts.push_back(allCorner_pts[(ChessboardSize.x)*(ChessboardSize.y-1)]);
+            chessboardCorner_pts.push_back(allCorner_pts[(ChessboardSize.x)*(ChessboardSize.y)-1]);
 
             float x1 = chessboardCorner_pts[0].x;
             float y1 = chessboardCorner_pts[0].y;

@@ -32,22 +32,29 @@ SOURCES += \
     checkcamerainstallation.cpp \
     cameraposeestimation.cpp \
     captureimg.cpp \
-    parameterinput.cpp
-        checkcamerainstallation.cpp
+    parameterinput.cpp \
+    intrinsic_param.cpp \
+    intrinsic_param_calculate.cpp \
+
+
+
 
 HEADERS += \
         mainwindow.h \
     checkcamerainstallation.h \
     cameraposeestimation.h \
     parameterinput.h \
-    captureimg.h
-        checkcamerainstallation.h
+    captureimg.h \
+    intrinsic_param.h \
+    intrinsic_param_calculate.h \
+
 
 FORMS += \
         mainwindow.ui \
     cameraposeestimation.ui \
     captureimg.ui \
-    parameterinput.ui
+    parameterinput.ui \
+    intrinsic_param.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
