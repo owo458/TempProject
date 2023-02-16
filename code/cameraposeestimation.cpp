@@ -23,6 +23,37 @@ string ExportText = "";
 extern Mat CameraPoseCapture_1;
 
 
+void qimage_to_mat(const QImage& image, cv::OutputArray out) {
+
+    switch(image.format()) {
+        case QImage::Format_Invalid:
+        {
+            cv::Mat empty;
+            empty.copyTo(out);
+            break;
+        }
+        case QImage::Format_RGB32:
+        {
+            cv::Mat view(image.height(),image.width(),CV_8UC4,(void *)image.constBits(),image.bytesPerLine());
+            view.copyTo(out);
+            break;
+        }
+        case QImage::Format_RGB888:
+        {
+            cv::Mat view(image.height(),image.width(),CV_8UC3,(void *)image.constBits(),image.bytesPerLine());
+            cvtColor(view, out, cv::COLOR_RGB2BGR);
+            break;
+        }
+        default:
+        {
+            QImage conv = image.convertToFormat(QImage::Format_ARGB32);
+            cv::Mat view(conv.height(),conv.width(),CV_8UC4,(void *)conv.constBits(),conv.bytesPerLine());
+            view.copyTo(out);
+            break;
+        }
+    }
+}
+
 CameraPoseEstimation::CameraPoseEstimation(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CameraPoseEstimation)
@@ -43,15 +74,18 @@ CameraPoseEstimation::CameraPoseEstimation(QWidget *parent) :
     Mat rawImg;
     if (CameraPoseCapture_1.empty())
     {
-        rawImg = imread(":/image/image/3m_sample_image.png");
+        QPixmap Qpixmap_raw(":/image/image/3m_sample_image.png");
+        QImage QImage_raw = Qpixmap_raw.toImage();
+        qimage_to_mat(QImage_raw,rawImg);
+        cout << "empty" << endl;
     }
     else
     {
+        cout << "full" << endl;
         rawImg = CameraPoseCapture_1;
         cvtColor(rawImg,rawImg,COLOR_BGR2RGB);
     }
-//    imshow("test",rawImg);
-//    waitKey(0);
+
     Mat PointDetectionImg;
     Mat resize_PointDetectionImg;
 
