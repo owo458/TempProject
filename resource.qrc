@@ -1,9 +1,0 @@
-<RCC>
-    <qresource prefix="/image">
-        <file>image/3m_sample_image.png</file>
-        <file>image/CameraInstallPositionDescriptionImage.png</file>
-        <file>image/crop_Chess.png</file>
-        <file>image/inCalImg.png</file>
-        <file>image/Logo.png</file>
-    </qresource>
-</RCC>
