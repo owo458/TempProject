@@ -64,6 +64,7 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         pushbtn_intrinsic->setText(QApplication::translate("MainWindow", "Intrinsic Calibration", 0));
         pushbtn_extrinsic->setText(QApplication::translate("MainWindow", "Extrinsic Calibration", 0));
+        
 #ifndef QT_NO_WHATSTHIS
         label->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p><img src=\":/image/image/Logo.png\"/></p></body></html>", 0));
 #endif // QT_NO_WHATSTHIS

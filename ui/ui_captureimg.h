@@ -148,10 +148,7 @@ public:
         pushButton_CalculationTilt->setText(QApplication::translate("CaptureImg", "Tilt", 0));
         pushButton_clear_1->setText(QApplication::translate("CaptureImg", "Clear", 0));
         pushButton_clear_2->setText(QApplication::translate("CaptureImg", "Clear", 0));
-    } // retranslateUi
-
-};
-
+    }
 namespace Ui {
     class CaptureImg: public Ui_CaptureImg {};
 } // namespace Ui

@@ -62,8 +62,10 @@ public:
     QLineEdit *lineEdit_ChessboardSizeY;
     QFrame *line_8;
     QLabel *Background;
+
     QLabel *image_1;
     QLabel *image_2;
+
 
     void setupUi(QWidget *ParameterInput)
     {
@@ -75,7 +77,9 @@ public:
         pushButton_Prev->setGeometry(QRect(30, 450, 450, 70));
         pushButton_Next = new QPushButton(ParameterInput);
         pushButton_Next->setObjectName(QStringLiteral("pushButton_Next"));
+
         pushButton_Next->setGeometry(QRect(520, 450, 450, 70));
+
         layoutWidget = new QWidget(ParameterInput);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(30, 10, 451, 421));
@@ -270,6 +274,7 @@ public:
         Background->setObjectName(QStringLiteral("Background"));
         Background->setGeometry(QRect(19, 9, 951, 431));
         Background->setStyleSheet(QStringLiteral("background-color: rgb(239, 235, 231);"));
+
         image_1 = new QLabel(ParameterInput);
         image_1->setObjectName(QStringLiteral("image_1"));
         image_1->setEnabled(true);
@@ -285,6 +290,7 @@ public:
         layoutWidget->raise();
         image_1->raise();
         image_2->raise();
+
         QWidget::setTabOrder(lineEdit_CarWidth, lineEdit_CarHeight);
         QWidget::setTabOrder(lineEdit_CarHeight, lineEdit_CameraToBumper);
         QWidget::setTabOrder(lineEdit_CameraToBumper, lineEdit_ChessboardCellSize);
@@ -302,6 +308,7 @@ public:
         ParameterInput->setWindowTitle(QApplication::translate("ParameterInput", "ParameterInput", 0));
         pushButton_Prev->setText(QApplication::translate("ParameterInput", "< Prev", 0));
         pushButton_Next->setText(QApplication::translate("ParameterInput", "Next >", 0));
+
         label_5->setText(QApplication::translate("ParameterInput", "Chessboard Point Size", 0));
         pushButton_ChessboardPointSizeDescription->setText(QApplication::translate("ParameterInput", "Description", 0));
         lineEdit_ChessboardCellSize->setText(QString());
@@ -331,6 +338,7 @@ public:
         Background->setText(QString());
         image_1->setText(QString());
         image_2->setText(QString());
+
     } // retranslateUi
 
 };
