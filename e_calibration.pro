@@ -50,15 +50,15 @@ HEADERS += \
 
 
 FORMS += \
-        code/mainwindow.ui \
-    code/cameraposeestimation.ui \
-    code/captureimg.ui \
-    code/parameterinput.ui \
-    code/intrinsic_param.ui
+        ui/mainwindow.ui \
+    ui/cameraposeestimation.ui \
+    ui/captureimg.ui \
+    ui/parameterinput.ui \
+    ui/intrinsic_param.ui
 
+UI_DIR = "ui/"
 
 RCC_DIR = "build\RCCFiles"
-UI_DIR = "build\UICFiles"
 MOC_DIR = "build\MOCFiles"
 OBJECTS_DIR = "build\ObjFiles"
 

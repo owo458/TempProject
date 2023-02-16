@@ -29,7 +29,7 @@
   <widget class="QPushButton" name="pushButton_Next">
    <property name="geometry">
     <rect>
-     <x>520</x>
+     <x>510</x>
      <y>450</y>
      <width>450</width>
      <height>70</height>
@@ -366,7 +366,6 @@
   <zorder>pushButton_Next</zorder>
   <zorder>DescriptionImg_1</zorder>
   <zorder>layoutWidget</zorder>
-  <zorder>lineEdit_CarToChessboard_1</zorder>
   <zorder>DescriptionImg_2</zorder>
  </widget>
  <tabstops>
