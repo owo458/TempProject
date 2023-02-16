@@ -90,8 +90,8 @@ void CaptureImg::on_pushButton_capture_1_clicked(bool capture_checked_1)
     ui->textEdit_value_roll_1->setText(QString::number(value_roll_1));
     cv::resize(tmpFrame_1, frame_display_mini_1, cv::Size(MINI_IMG_W, MINI_IMG_H));
 
-    CameraPoseCapture_1 = frame;
-
+    CaptureImg::frame.copyTo(CameraPoseCapture_1);
+//    CameraPoseCapture_1 = tmpFrame_1;
 }
 
 void CaptureImg::on_pushButton_capture_2_clicked(bool capture_checked_2)
@@ -156,4 +156,16 @@ void CaptureImg::on_pushButton_Next_clicked()
     //this->close();
     this->fore_dialog = new CameraPoseEstimation();
     this->fore_dialog->show();
+}
+
+void CaptureImg::on_pushButton_clear_1_clicked()
+{
+    CaptureImg::tmpFrame_1.release();
+    ui->label_Capture_1->clear();
+}
+
+void CaptureImg::on_pushButton_clear_2_clicked()
+{
+    CaptureImg::tmpFrame_2.release();
+    ui->label_Capture_2->clear();
 }

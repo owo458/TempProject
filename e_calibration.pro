@@ -34,7 +34,7 @@ SOURCES += \
     code/captureimg.cpp \
     code/parameterinput.cpp \
     code/intrinsic_param.cpp \
-    code/intrinsic_param_calculate.cpp \
+    code/intrinsic_param_calculate.cpp
 
 
 
@@ -46,7 +46,7 @@ HEADERS += \
     code/parameterinput.h \
     code/captureimg.h \
     code/intrinsic_param.h \
-    code/intrinsic_param_calculate.h \
+    code/intrinsic_param_calculate.h
 
 
 FORMS += \
@@ -73,3 +73,7 @@ OBJECTS_DIR = "build\ObjFiles"
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resource.qrc
+

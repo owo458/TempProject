@@ -189,10 +189,10 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="Label_inCalImg">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>320</y>
+     <x>40</x>
+     <y>330</y>
      <width>801</width>
-     <height>151</height>
+     <height>241</height>
     </rect>
    </property>
    <property name="text">

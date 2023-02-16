@@ -126,21 +126,16 @@ void ParameterInput::on_pushButton_CameraInstallDescription_clicked()
 
     if (checked_1 == false)
     {
-        Mat DescriptionImg = imread("./image/CameraInstallPositionDescriptionImage.png");
-        cv::resize(DescriptionImg,DescriptionImg,Size(400,250));
-        cvtColor(DescriptionImg,DescriptionImg,COLOR_BGR2RGB);
+        QPixmap pixmap(":/image/image/CameraInstallPositionDescriptionImage.png");
 
-        QImage qt_DescriptionImg;
-        qt_DescriptionImg = QImage((const unsigned char*) (DescriptionImg.data), DescriptionImg.cols, DescriptionImg.rows, QImage::Format_RGB888);
-        ui->DescriptionImg_1->setPixmap(QPixmap::fromImage(qt_DescriptionImg));
+        ui->image_1->setScaledContents(true);
+        ui->image_1->setPixmap(pixmap);
+
         checked_1=true;
     }
     else
     {
-        Mat TestImg(Size(1000,1000),CV_8UC3,Scalar(239, 235, 231));
-        QImage qt_TestImg;
-        qt_TestImg = QImage((const unsigned char*) (TestImg.data), TestImg.cols, TestImg.rows, QImage::Format_RGB888);
-        ui->DescriptionImg_1->setPixmap(QPixmap::fromImage(qt_TestImg));
+        ui->image_1->clear();
         checked_1=false;
     }
 
@@ -158,22 +153,16 @@ void ParameterInput::on_pushButton_ChessboardPointSizeDescription_clicked()
 {
     if (checked_2 == false)
     {
-        Mat DescriptionImg = imread("./image/crop_Chess.png");
-        cv::resize(DescriptionImg,DescriptionImg,Size(400,150));
-        cvtColor(DescriptionImg,DescriptionImg,COLOR_BGR2RGB);
 
-        QImage qt_DescriptionImg;
-        qt_DescriptionImg = QImage((const unsigned char*) (DescriptionImg.data), DescriptionImg.cols, DescriptionImg.rows, QImage::Format_RGB888);
-        ui->DescriptionImg_2->setPixmap(QPixmap::fromImage(qt_DescriptionImg));
+        QPixmap pixmap(":/image/image/crop_Chess.png");
+        ui->image_2->setScaledContents(true);
+        ui->image_2->setPixmap(pixmap);
+
         checked_2=true;
     }
     else
     {
-        //Mat TestImg = Mat::zeros(1000,1000,CV_32SC1);
-        Mat TestImg(Size(1000,1000),CV_8UC3,Scalar(239, 235, 231));
-        QImage qt_TestImg;
-        qt_TestImg = QImage((const unsigned char*) (TestImg.data), TestImg.cols, TestImg.rows, QImage::Format_RGB888);
-        ui->DescriptionImg_2->setPixmap(QPixmap::fromImage(qt_TestImg));
+        ui->image_2->clear();
         checked_2=false;
     }
 }

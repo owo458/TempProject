@@ -43,7 +43,7 @@ CameraPoseEstimation::CameraPoseEstimation(QWidget *parent) :
     Mat rawImg;
     if (CameraPoseCapture_1.empty())
     {
-        rawImg = imread("./image/3m_sample_image.png");
+        rawImg = imread(":/image/image/3m_sample_image.png");
     }
     else
     {
@@ -102,6 +102,8 @@ CameraPoseEstimation::CameraPoseEstimation(QWidget *parent) :
 
     QImage qt_PointImg;
     qt_PointImg = QImage((const unsigned char*) (resize_PointDetectionImg.data), resize_PointDetectionImg.cols, resize_PointDetectionImg.rows, QImage::Format_RGB888);
+
+    ui->PointImg->setScaledContents(true);
     ui->PointImg->setPixmap(QPixmap::fromImage(qt_PointImg));
 
     /*************************/
@@ -151,6 +153,7 @@ CameraPoseEstimation::CameraPoseEstimation(QWidget *parent) :
 
     QImage qt_ReprojectionImg;
     qt_ReprojectionImg = QImage((const unsigned char*) (resize_ReprojectionImg.data), resize_ReprojectionImg.cols, resize_ReprojectionImg.rows, QImage::Format_RGB888);
+    ui->ReProjectionImg->setScaledContents(true);
     ui->ReProjectionImg->setPixmap(QPixmap::fromImage(qt_ReprojectionImg));
 
     /*************************/

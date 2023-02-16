@@ -54,7 +54,8 @@ SOURCES       = code/main.cpp \
 		code/cameraposeestimation.cpp \
 		code/captureimg.cpp \
 		code/parameterinput.cpp \
-		code/intrinsic_param.cpp build/MOCFiles/moc_mainwindow.cpp \
+		code/intrinsic_param.cpp build/RCCFiles/qrc_resource.cpp \
+		build/MOCFiles/moc_mainwindow.cpp \
 		build/MOCFiles/moc_cameraposeestimation.cpp \
 		build/MOCFiles/moc_parameterinput.cpp \
 		build/MOCFiles/moc_captureimg.cpp \
@@ -66,6 +67,7 @@ OBJECTS       = build/ObjFiles/main.o \
 		build/ObjFiles/captureimg.o \
 		build/ObjFiles/parameterinput.o \
 		build/ObjFiles/intrinsic_param.o \
+		build/ObjFiles/qrc_resource.o \
 		build/ObjFiles/moc_mainwindow.o \
 		build/ObjFiles/moc_cameraposeestimation.o \
 		build/ObjFiles/moc_parameterinput.o \
@@ -392,6 +394,7 @@ Makefile: e_calibration.pro ../../../Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++/qmake.
 		../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/yacc.prf \
 		../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/lex.prf \
 		e_calibration.pro \
+		resource.qrc \
 		../../../Qt5.7.0/5.7/gcc_64/lib/libQt5MultimediaWidgets.prl \
 		../../../Qt5.7.0/5.7/gcc_64/lib/libQt5Multimedia.prl \
 		../../../Qt5.7.0/5.7/gcc_64/lib/libQt5Widgets.prl \
@@ -548,6 +551,7 @@ Makefile: e_calibration.pro ../../../Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++/qmake.
 ../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/yacc.prf:
 ../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/lex.prf:
 e_calibration.pro:
+resource.qrc:
 ../../../Qt5.7.0/5.7/gcc_64/lib/libQt5MultimediaWidgets.prl:
 ../../../Qt5.7.0/5.7/gcc_64/lib/libQt5Multimedia.prl:
 ../../../Qt5.7.0/5.7/gcc_64/lib/libQt5Widgets.prl:
@@ -568,6 +572,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents resource.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents code/mainwindow.h code/checkcamerainstallation.h code/cameraposeestimation.h code/parameterinput.h code/captureimg.h code/intrinsic_param.h code/intrinsic_param_calculate.h $(DISTDIR)/
 	$(COPY_FILE) --parents code/main.cpp code/mainwindow.cpp code/checkcamerainstallation.cpp code/cameraposeestimation.cpp code/captureimg.cpp code/parameterinput.cpp code/intrinsic_param.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ui/mainwindow.ui ui/cameraposeestimation.ui ui/captureimg.ui ui/parameterinput.ui ui/intrinsic_param.ui $(DISTDIR)/
@@ -594,8 +599,18 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: build/RCCFiles/qrc_resource.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) build/RCCFiles/qrc_resource.cpp
+build/RCCFiles/qrc_resource.cpp: resource.qrc \
+		../../../Qt5.7.0/5.7/gcc_64/bin/rcc \
+		image/CameraInstallPositionDescriptionImage.png \
+		image/crop_Chess.png \
+		image/Logo.png \
+		image/inCalImg.png \
+		image/3m_sample_image.png
+	/home/kiki/Qt5.7.0/5.7/gcc_64/bin/rcc -name resource resource.qrc -o build/RCCFiles/qrc_resource.cpp
+
 compiler_moc_header_make_all: build/MOCFiles/moc_mainwindow.cpp build/MOCFiles/moc_cameraposeestimation.cpp build/MOCFiles/moc_parameterinput.cpp build/MOCFiles/moc_captureimg.cpp build/MOCFiles/moc_intrinsic_param.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) build/MOCFiles/moc_mainwindow.cpp build/MOCFiles/moc_cameraposeestimation.cpp build/MOCFiles/moc_parameterinput.cpp build/MOCFiles/moc_captureimg.cpp build/MOCFiles/moc_intrinsic_param.cpp
@@ -1194,7 +1209,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -2258,6 +2273,9 @@ build/ObjFiles/intrinsic_param.o: code/intrinsic_param.cpp code/intrinsic_param.
 		code/intrinsic_param_calculate.cpp \
 		code/intrinsic_param_calculate.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/ObjFiles/intrinsic_param.o code/intrinsic_param.cpp
+
+build/ObjFiles/qrc_resource.o: build/RCCFiles/qrc_resource.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/ObjFiles/qrc_resource.o build/RCCFiles/qrc_resource.cpp
 
 build/ObjFiles/moc_mainwindow.o: build/MOCFiles/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/ObjFiles/moc_mainwindow.o build/MOCFiles/moc_mainwindow.cpp

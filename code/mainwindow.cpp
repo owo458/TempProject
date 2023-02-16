@@ -13,9 +13,12 @@ MainWindow::MainWindow(QWidget *parent) :
 //    sModulePath += "/image/Logo.png";
 //    QPixmap pixmap(sModulePath);
 //    cout << sModulePath.toStdString() << endl;
-    QPixmap pixmap("./image/Logo.png");
-    QPixmap fitpixmap=pixmap.scaled(700, 350, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    ui->LogoImg->setPixmap(fitpixmap);
+//    QPixmap pixmap("./image/Logo.png");
+
+//    QPixmap pixmap(":/image/image/Logo.png");
+
+//    QPixmap fitpixmap=pixmap.scaled(700, 350, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+//    ui->LogoImg->setPixmap(fitpixmap);
 }
 
 MainWindow::~MainWindow()
