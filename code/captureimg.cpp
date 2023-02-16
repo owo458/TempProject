@@ -161,11 +161,13 @@ void CaptureImg::on_pushButton_Next_clicked()
 void CaptureImg::on_pushButton_clear_1_clicked()
 {
     CaptureImg::tmpFrame_1.release();
+    CaptureImg::frame_display_mini_1.release();
     ui->label_Capture_1->clear();
 }
 
 void CaptureImg::on_pushButton_clear_2_clicked()
 {
     CaptureImg::tmpFrame_2.release();
+    CaptureImg::frame_display_mini_2.release();
     ui->label_Capture_2->clear();
 }
