@@ -106,14 +106,15 @@ void intrinsic_param::on_textEdit_FPS_textChanged()
 
 void intrinsic_param::on_pushButton_Start_clicked()
 {
-    int video2MatProcess= 0;
-    int interCameraCalibrationProcess= 0;
-    int autoCalibrationProcess = 0;
-    int principalPointErrorProcess = 0;
-    int saveImgProcess = 0;
-    int reprojectionProcess = 0;
-    int undistortProcess= 0;
-    int saveTxtProcess = 0;
+    //int video2MatProcess= 0;
+    //int interCameraCalibrationProcess= 0;
+    //int autoCalibrationProcess = 0;
+    //int principalPointErrorProcess = 0;
+    //int saveImgProcess = 0;
+    //int reprojectionProcess = 0;
+    //int undistortProcess= 0;
+    //int saveTxtProcess = 0;
+    int processChecker = 0;
     double totalAvgErr = 1.0;
 
     intrinsic_param_calculate inParamCal = intrinsic_param_calculate();
@@ -121,29 +122,29 @@ void intrinsic_param::on_pushButton_Start_clicked()
     //ui->progressBar_calProcess->setAlignment(Qt.AlignCenter);
 
     if(m_startCheck[0] + m_startCheck[1] + m_startCheck[2] + m_startCheck[3] + m_startCheck[4] == 5){
-        video2MatProcess= inParamCal.video2Mat(m_path[0].toStdString(), m_fps);
+        processChecker= inParamCal.video2Mat(m_path[0].toStdString(), m_fps);
         ui->progressBar_calProcess->setValue(30);
 
-        interCameraCalibrationProcess = inParamCal.interCameraCalibration(m_chess_pattern);
+        processChecker = inParamCal.interCameraCalibration(m_chess_pattern);
         ui->progressBar_calProcess->setValue(60);
 
-        autoCalibrationProcess = inParamCal.autoCalibration(totalAvgErr);
+        processChecker = inParamCal.autoCalibration(totalAvgErr);
         ui->textBrowser_ReprojectionError->setText(QString::number(totalAvgErr));
         ui->progressBar_calProcess->setValue(80);
 
-        principalPointErrorProcess = inParamCal.principalPointError();
-        if(principalPointErrorProcess == -1){
+        processChecker = inParamCal.principalPointError();
+        if(processChecker == -1){
             std::cout<<"principalPointError"<<std::endl;
             ui->textBrowser_PrincipaPointError->setText("Error");
         }else{
             ui->textBrowser_PrincipaPointError->setText("PASS");
         }
-        saveImgProcess = inParamCal.saveResultsImg(m_path[1].toStdString());
-        reprojectionProcess = inParamCal.reprojectionPattern(m_path[1].toStdString());
+        processChecker = inParamCal.saveResultsImg(m_path[1].toStdString());
+        processChecker = inParamCal.reprojectionPattern(m_path[1].toStdString());
         ui->progressBar_calProcess->setValue(90);
 
-        saveTxtProcess = inParamCal.saveResultsTxt(m_path[1].toStdString());
-        undistortProcess = inParamCal.undistortTest(m_path[1].toStdString());
+        processChecker = inParamCal.saveResultsTxt(m_path[1].toStdString());
+        processChecker = inParamCal.undistortTest(m_path[1].toStdString());
         ui->progressBar_calProcess->setValue(100);
     }
     else{

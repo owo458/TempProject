@@ -52,7 +52,7 @@ int intrinsic_param_calculate::interCameraCalibration(int* chess_pattern)
   cv::Mat frame, gray;
   std::vector<cv::Point2f> corner_pts;
   bool success;
-  for (int i = 0; i < m_matImages.size(); i++)
+  for (uint i = 0; i < m_matImages.size(); i++)
   {
     frame = m_matImages[i].clone();
     cv::cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
@@ -78,26 +78,30 @@ int intrinsic_param_calculate::interCameraCalibration(int* chess_pattern)
   }
   cv::destroyAllWindows();
   std::cout << "interCameraCalibration end!" << std::endl;
+  return 1;
 }
 
 int intrinsic_param_calculate::autoCalibration(double& totalAvgErr){
     int check = 0;
+    int reprojecterrorProcess = 0;
+    int overlapRemoveProcess = 0;
     std::cout << "matImages : " << m_matImages.size() << std::endl;
+
     while (totalAvgErr > 0.3 && m_matImages.size() > 20)
     {
       cv::calibrateCamera(m_objpoints, m_imgpoints, m_img_size, m_cameraMatrix, m_distCoeffs, m_R, m_T, 0);
-      int reprojecterrorProcess = reprojeactionError(totalAvgErr);
+      reprojecterrorProcess = reprojeactionError(totalAvgErr);
       std::cout << "matImages(reprojecterror) : " << m_matImages.size() << std::endl;
 
       if (check == 0)
       {
-        int overlapRemoveProcess = overlapRemove();
+        overlapRemoveProcess = overlapRemove();
         std::cout << "matImages(overlapRemove) : " << m_matImages.size() << std::endl;
         check++;
       }
     }
     std::cout << "autoCalibration end!" << std::endl;
-    return 1;
+    return reprojecterrorProcess + overlapRemoveProcess;
 }
 
 
@@ -107,7 +111,7 @@ int intrinsic_param_calculate::reprojeactionError(double &totalAvgErr)
   totalAvgErr = computeReprojectionErrors();
   std::cout << "totalAvgErr : " << totalAvgErr << std::endl;
 
-  for (int i = 0; i < m_matImages.size(); i++)
+  for (uint i = 0; i < m_matImages.size(); i++)
   {
     if (m_reprojErrs[i] > totalAvgErr)
     {
@@ -156,7 +160,7 @@ int intrinsic_param_calculate::overlapRemove()
   cv::Mat R_temp, T_temp;
   std::vector<cv::Mat> pose_temp;
 
-  for (int i = 0; i < m_matImages.size(); i++)
+  for (uint i = 0; i < m_matImages.size(); i++)
   {
     R_temp = m_R[i];
     T_temp = m_T[i];
@@ -167,14 +171,14 @@ int intrinsic_param_calculate::overlapRemove()
     pose_temp.push_back(P);
   }
 
-  for (int i = 0; i < m_matImages.size(); i++)
+  for (uint i = 0; i < m_matImages.size(); i++)
   {
-    for (int j = i + 1; j < m_matImages.size(); j++)
+    for (uint j = i + 1; j < m_matImages.size(); j++)
     {
 
       double *p = (double *)pose_temp[i].data;
       double *p2 = (double *)pose_temp[j].data;
-      int remove = 0;
+      uint remove = 0;
       distance = sqrt(pow(p[0] - p2[0], 2) + pow(p[1] - p2[1], 2) + pow(p[2] - p2[2], 2));
       if (distance < 1)
       {
@@ -230,7 +234,7 @@ int intrinsic_param_calculate::reprojectionPattern(std::string path)
   cv::line(viewer_img, cv::Point(250, 490), cv::Point(250, 470), cv::Scalar(255, 255, 255), 1, 8); // 세로 200
 
   cv::Mat R_temp, T_temp;
-  for (int i = 0; i < m_R.size(); i++)
+  for (uint i = 0; i < m_R.size(); i++)
   {
     R_temp = m_R[i];
     T_temp = m_T[i];
@@ -256,6 +260,7 @@ int intrinsic_param_calculate::reprojectionPattern(std::string path)
 
   cv::imwrite(buffer, viewer_img);
   std::cout << "reprojectionPattern end!" << std::endl;
+  return 1;
 }
 
 
@@ -272,7 +277,7 @@ int intrinsic_param_calculate::principalPointError(){
 int intrinsic_param_calculate::undistortTest(std::string path)
 {
   char buffer[256];
-  for(int i=0; i<m_matImages.size(); i++){
+  for(uint i=0; i<m_matImages.size(); i++){
     cv::Mat frame = m_matImages[i].clone();
     cv::Mat temp = frame.clone();
     cv::Mat map1, map2;
@@ -299,7 +304,7 @@ int intrinsic_param_calculate::undistortTest(std::string path)
 
 int intrinsic_param_calculate::saveResultsImg(std::string path){
   char buffer[256];
-  for (int i = 0; i < m_matImages.size(); i++)
+  for (uint i = 0; i < m_matImages.size(); i++)
   {
     sprintf(buffer, "%s/%03d.png", path.c_str(), i);
     cv::Mat frame = m_matImages[i];
@@ -345,7 +350,7 @@ int intrinsic_param_calculate::saveResultsTxt(std::string path){
 
         writeFile.close();
     }
-
+    return 1;
 }
 
 
