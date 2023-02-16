@@ -10,26 +10,10 @@ intrinsic_param::intrinsic_param(QWidget *parent) :
     ui->setupUi(this);
     ui->progressBar_calProcess->setValue(0);
 
-    QImage *Img = new QImage();
-    QPixmap *buffer = new QPixmap();
+    QPixmap pixmap(":/image/image/inCalImg.png");
 
-    if(Img->load("./image/inCalImg.png"))
-    {
-        *buffer = QPixmap::fromImage(*Img);
-        //*buffer = buffer->scaled(Img->width(),Img->height());
-        *buffer = buffer->scaled(800, 259.710144928);
-    }
-    else
-    {
-        QMessageBox mbox;
-        mbox.critical(this,"inCalImg Error"," inCalImg Path check !!!! ", mbox.Yes);
-    }
-    //QLabel *lbView = new QLabel(this);
-    ui->Label_inCalImg->setPixmap(*buffer);
-    ui->Label_inCalImg->resize(buffer->width(),buffer->height());
-    ui->Label_inCalImg->move(50,320);
-    ui->Label_inCalImg->show();
-
+    ui->Label_inCalImg->setScaledContents(true);
+    ui->Label_inCalImg->setPixmap(pixmap);
 
 }
 
@@ -37,7 +21,7 @@ intrinsic_param::intrinsic_param(QWidget *parent) :
 void intrinsic_param::closeEvent (QCloseEvent *event)
 {
     QWidget::closeEvent(event);
-    std::cout << "closeEvent " << std::endl;
+//    std::cout << "closeEvent " << std::endl;
 }
 
 intrinsic_param::~intrinsic_param()

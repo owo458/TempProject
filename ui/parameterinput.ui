@@ -29,7 +29,7 @@
   <widget class="QPushButton" name="pushButton_Next">
    <property name="geometry">
     <rect>
-     <x>510</x>
+     <x>520</x>
      <y>450</y>
      <width>450</width>
      <height>70</height>
@@ -37,22 +37,6 @@
    </property>
    <property name="text">
     <string>Next &gt;</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="DescriptionImg_1">
-   <property name="geometry">
-    <rect>
-     <x>520</x>
-     <y>9</y>
-     <width>450</width>
-     <height>250</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(239, 235, 231);</string>
-   </property>
-   <property name="text">
-    <string/>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget">
@@ -345,17 +329,36 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="DescriptionImg_2">
+  <widget class="QLabel" name="image_1">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>520</x>
-     <y>280</y>
+     <y>20</y>
      <width>450</width>
-     <height>150</height>
+     <height>240</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(239, 235, 231);</string>
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="image_2">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>269</y>
+     <width>450</width>
+     <height>173</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>
@@ -364,9 +367,9 @@
   <zorder>Background</zorder>
   <zorder>pushButton_Prev</zorder>
   <zorder>pushButton_Next</zorder>
-  <zorder>DescriptionImg_1</zorder>
   <zorder>layoutWidget</zorder>
-  <zorder>DescriptionImg_2</zorder>
+  <zorder>image_1</zorder>
+  <zorder>image_2</zorder>
  </widget>
  <tabstops>
   <tabstop>lineEdit_CarWidth</tabstop>

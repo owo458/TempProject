@@ -69,6 +69,10 @@ private slots:
 
     void closeEvent (QCloseEvent *event);
 
+    void on_pushButton_clear_1_clicked();
+
+    void on_pushButton_clear_2_clicked();
+
 private:
     Ui::CaptureImg *ui;
 
