@@ -11,9 +11,6 @@ extern double g_CarWidth;
 extern double g_CarHeight;
 extern double g_CameraToBumper;
 extern double g_CameraInstallPosition;
-extern float g_ChessboardCellSize;
-extern int g_ChessboardSizeX;
-extern int g_ChessboardSizeY;
 extern float g_CarToChessboard_1;
 extern float g_CarToChessboard_2;
 extern string IntrinsicParameterPath;
@@ -174,7 +171,7 @@ CameraPoseEstimation::CameraPoseEstimation(QWidget *parent) :
     print_matrix(T, T.rows, T.cols);
 
     /* World Coordinator Origin Point Draw*/
-    drawAxis(PointDetectionImg,&R,&T,&cameraIntrinsicParameter,&cameraDistortionCoefficient);
+    drawAxis(PointDetectionImg,&R,&T,&cameraIntrinsicParameter,&cameraDistortionCoefficient,TargetDistance);
 
     /* ReprojectionPoint Draw*/
     drawReprojectionPoint(&PointDetectionImg,&R,&T,&cameraIntrinsicParameter,&cameraDistortionCoefficient,TargetDistance);

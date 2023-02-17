@@ -9,6 +9,10 @@
 using namespace std;
 using namespace cv;
 
+extern float g_ChessboardCellSize;
+extern int g_ChessboardSizeX;
+extern int g_ChessboardSizeY;
+
 namespace Ui {
 class CameraPoseEstimation;
 }
@@ -167,11 +171,15 @@ private:
 
         /* Sample/sample1, sample2로 하였을 때 */
          // 카메라가 땅에 닿아있는 부분을 원점으로 하였을 때
-        corner_pts3D.push_back(Point3f(-280.0,distance,700.0+65.0));
-        corner_pts3D.push_back(Point3f(280.0,distance,700.0+65.0));
-        corner_pts3D.push_back(Point3f(-280.0,distance,70.0+65.0));
-        corner_pts3D.push_back(Point3f(280.0,distance,70.0+65.0));
+        corner_pts3D.push_back(Point3f(-(g_ChessboardSizeX-1)/2*g_ChessboardCellSize,distance,(g_ChessboardSizeY)*g_ChessboardCellSize));
+        corner_pts3D.push_back(Point3f((g_ChessboardSizeX-1)/2*g_ChessboardCellSize,distance,(g_ChessboardSizeY)*g_ChessboardCellSize));
+        corner_pts3D.push_back(Point3f(-(g_ChessboardSizeX-1)/2*g_ChessboardCellSize,distance,g_ChessboardCellSize));
+        corner_pts3D.push_back(Point3f((g_ChessboardSizeX-1)/2*g_ChessboardCellSize,distance,g_ChessboardCellSize));
 
+//        cout << corner_pts3D[0].x <<","<< corner_pts3D[0].y <<","<< corner_pts3D[0].z << endl;
+//        cout << corner_pts3D[1].x <<","<< corner_pts3D[1].y <<","<< corner_pts3D[1].z << endl;
+//        cout << corner_pts3D[2].x <<","<< corner_pts3D[2].y <<","<< corner_pts3D[2].z << endl;
+//        cout << corner_pts3D[3].x <<","<< corner_pts3D[3].y <<","<< corner_pts3D[3].z << endl;
         /**************************************************/
         printf("3D Point[LeftTop]                    : (%f[mm], %f[mm], %f[mm]) \n", corner_pts3D[0].x, corner_pts3D[0].y, corner_pts3D[0].z);
         printf("3D Point[RightTop]                   : (%f[mm], %f[mm], %f[mm]) \n", corner_pts3D[1].x, corner_pts3D[1].y, corner_pts3D[1].z);
@@ -212,9 +220,9 @@ private:
         vector<int> Layer;
         Layer.push_back(0);
 
-        for(float x = -(int)(distance/3000)*100.0*15; x<=(int)(distance/3000)*100.0*15; x+=500)
+        for(float x = -50*(int)(g_ChessboardCellSize/10)*3; x<=50*(int)(g_ChessboardCellSize/10)*3; x+=50*(int)(g_ChessboardCellSize/10)) // 5cm
         {
-            for(float y = distance-3000; y<=10*100.0*1500; y+=500)
+            for(float y = distance; y<=50*100.0*(int)(g_ChessboardCellSize/10)*4; y+=50*(int)(g_ChessboardCellSize/10))
             {
                 ReprojectionAllPoint3D.push_back(Point3f(x,y,0));
             }
@@ -256,18 +264,19 @@ private:
 
     }
 
-    void drawAxis(Mat image, Mat* R, Mat* T, Mat* cameraIntrinsicParameter, Mat* cameraDistortionCoefficient)
+    void drawAxis(Mat image, Mat* R, Mat* T, Mat* cameraIntrinsicParameter, Mat* cameraDistortionCoefficient,float distance)
     {
-
+        cout << "distance :" << distance << endl;
         vector<Point3f> OriginPoint;
-        OriginPoint.push_back({0,0,0});
+        OriginPoint.push_back({0,distance,0});
         vector<Point2f> reProjectionOriginPoint;
         projectPoints(OriginPoint, *R, *T, *cameraIntrinsicParameter, *cameraDistortionCoefficient,reProjectionOriginPoint);
-
+//        circle(image,reProjectionOriginPoint[0],5,Scalar(255,0,255),5);
+//        cout << "test : " << reProjectionOriginPoint[0] << endl;
         vector<Point3f> axis;
-        axis.push_back({240,0,0});
-        axis.push_back({0,240,0});
-        axis.push_back({0,0,240});
+        axis.push_back({2*g_ChessboardCellSize,distance,0});
+        axis.push_back({0,distance+2*g_ChessboardCellSize,0});
+        axis.push_back({0,distance,2*g_ChessboardCellSize});
 
         vector<Point2f> imgpts;
         projectPoints(axis, *R, *T, *cameraIntrinsicParameter, *cameraDistortionCoefficient, imgpts);
