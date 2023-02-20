@@ -22,6 +22,9 @@
      <height>70</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
    <property name="text">
     <string>&lt; Prev</string>
    </property>
@@ -34,6 +37,9 @@
      <width>450</width>
      <height>70</height>
     </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
    </property>
    <property name="text">
     <string>Next &gt;</string>
@@ -58,6 +64,9 @@
     </item>
     <item row="14" column="1" colspan="2">
      <widget class="QPushButton" name="pushButton_ChessboardPointSizeDescription">
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="text">
        <string>Description</string>
       </property>
@@ -95,6 +104,9 @@
         <height>23</height>
        </size>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="toolTip">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
@@ -108,6 +120,9 @@
     </item>
     <item row="9" column="1" colspan="2">
      <widget class="QPushButton" name="pushButton_Load">
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="text">
        <string>Load</string>
       </property>
@@ -214,6 +229,9 @@
     </item>
     <item row="6" column="1" colspan="2">
      <widget class="QPushButton" name="pushButton_CameraInstallDescription">
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="text">
        <string>Description</string>
       </property>
@@ -221,6 +239,9 @@
     </item>
     <item row="7" column="1" colspan="2">
      <widget class="QLineEdit" name="lineEdit_CameraInstallPosition">
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -376,9 +397,18 @@
   <tabstop>lineEdit_CarHeight</tabstop>
   <tabstop>lineEdit_CameraToBumper</tabstop>
   <tabstop>lineEdit_ChessboardCellSize</tabstop>
+  <tabstop>lineEdit_ChessboardSizeX</tabstop>
+  <tabstop>lineEdit_ChessboardSizeY</tabstop>
+  <tabstop>lineEdit_CarToChessboard_1</tabstop>
+  <tabstop>lineEdit_CarToChessboard_2</tabstop>
+  <tabstop>lineEdit_CameraNumber</tabstop>
   <tabstop>pushButton_Prev</tabstop>
   <tabstop>pushButton_Next</tabstop>
+  <tabstop>lineEdit_CameraInstallPosition</tabstop>
   <tabstop>pushButton_Load</tabstop>
+  <tabstop>pushButton_ChessboardPointSizeDescription</tabstop>
+  <tabstop>lineEdit_FileName</tabstop>
+  <tabstop>pushButton_CameraInstallDescription</tabstop>
  </tabstops>
  <resources/>
  <connections/>
