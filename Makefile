@@ -1470,9 +1470,42 @@ build/ObjFiles/mainwindow.o: code/mainwindow.cpp code/mainwindow.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
 		ui/ui_mainwindow.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QCoreApplication \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QStatusBar \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstatusbar.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QCoreApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/ObjFiles/mainwindow.o code/mainwindow.cpp
 
 build/ObjFiles/checkcamerainstallation.o: code/checkcamerainstallation.cpp code/checkcamerainstallation.h \
@@ -1698,7 +1731,58 @@ build/ObjFiles/cameraposeestimation.o: code/cameraposeestimation.cpp code/captur
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		code/cameraposeestimation.h \
-		ui/ui_cameraposeestimation.h
+		ui/ui_cameraposeestimation.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qicon.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QSplitter \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qsplitter.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTextEdit \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextdocument.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextcursor.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextformat.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/ObjFiles/cameraposeestimation.o code/cameraposeestimation.cpp
 
 build/ObjFiles/captureimg.o: code/captureimg.cpp code/captureimg.h \
@@ -1808,11 +1892,53 @@ build/ObjFiles/captureimg.o: code/captureimg.cpp code/captureimg.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		code/cameraposeestimation.h \
 		ui/ui_captureimg.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qicon.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTextEdit \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextdocument.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextcursor.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextformat.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
 		code/checkcamerainstallation.h \
 		code/parameterinput.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QDoubleValidator \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
-		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFileDialog \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qfiledialog.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdir.h \
@@ -1933,7 +2059,54 @@ build/ObjFiles/parameterinput.o: code/parameterinput.cpp code/parameterinput.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qfiledialog.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qdir.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfileinfo.h \
-		ui/ui_parameterinput.h
+		ui/ui_parameterinput.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qicon.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFrame \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QGridLayout \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLineEdit \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextcursor.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextformat.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/ObjFiles/parameterinput.o code/parameterinput.cpp
 
 build/ObjFiles/intrinsic_param.o: code/intrinsic_param.cpp code/intrinsic_param.h \
@@ -2043,6 +2216,63 @@ build/ObjFiles/intrinsic_param.o: code/intrinsic_param.cpp code/intrinsic_param.
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMessageBox \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
 		ui/ui_intrinsic_param.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qicon.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFormLayout \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qformlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLayout \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QProgressBar \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qprogressbar.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTextBrowser \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtextbrowser.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextdocument.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextcursor.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextformat.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTextEdit \
+		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		code/intrinsic_param_calculate.cpp \
 		code/intrinsic_param_calculate.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/ObjFiles/intrinsic_param.o code/intrinsic_param.cpp

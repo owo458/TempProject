@@ -1,18 +1,14 @@
 # Calibration Tool
 
-
-
-## 1. Purpose
-
 카메라 내/외부 캘리브레이션을 하기위한 tool
 
 
 
-## 2. Install
+## 1. Install
 
 > reference : https://wiki.qt.io/Install_Qt_5_on_Ubuntu
 
-### 2.1. Qt5
+### 1.1. Qt5
 
 - 5.7.0 version 설치
 
@@ -26,7 +22,7 @@ chmod +x qt-opensource-linux-x64-5.7.0.run
 
 
 
-### 2.2. g++
+### 1.2. g++
 
 ```sh
 sudo apt-get install build-essential
@@ -34,7 +30,7 @@ sudo apt-get install build-essential
 
 
 
-### 2.3. Compiler
+### 1.3. Compiler
 
 ```sh
 sudo apt-get install libfontconfig1
@@ -42,7 +38,7 @@ sudo apt-get install libfontconfig1
 
 
 
-### 2.4. OpenCV 4.4.x install
+### 1.4. OpenCV 4.4.x install
 
 >reference : https://webnautes.tistory.com/1433
 
@@ -156,7 +152,7 @@ pkg-config --modversion opencv4
 
 
 
-## 3. Setup
+## 2. Setup
 
 ```sh
 #bashrc open
@@ -169,9 +165,95 @@ export LD_LIBRARY_PATH=/home/lsh/Qt5.7.0/5.7/gcc_64/lib:$LD_LIBRARY_PATH
 
 
 
-## 4. Getting Started
+## 3. Getting Started
 
 ```sh
 ./e_calibration
 ```
 
+
+
+## 4. Description
+
+### 4.1 main
+
+- 내부 파라미터
+- 외부 파라미터
+
+![mainWindow](/media/server/WORK/sh_git/TempProject/ReadMe_image/Main_Window.png)
+
+
+
+### 4.2 Intrinsic Calibration
+
+INPUT
+
+- Video Path : Calibration 할 동영상 입력
+- Save Path : Calibration 진행 후 결과파일을 저장할 폴더
+- Chess board Point(horizontal)(vertical) : Chessboard의 가로, 세로
+- Frame per Second : Calibration할 동영상에서 초당 추출할 프레임 수 입력
+
+OUTPUT
+
+- Principal Point Error :  
+- Reprojection Error : 재투영 오차
+- Save Path에 각종 결과물 출력
+
+![Intrinsic_Calibration](/media/server/WORK/sh_git/TempProject/ReadMe_image/Intrinsic_Calibration.png)
+
+
+
+### 4.3 Extrinsic Calibration
+
+#### 4.3.1 Parameter Input
+
+INPUT
+
+- Car width : Wheel to Wheel
+- Car Height
+- Camera to bumper
+- Camera Install Position : 카메라의 설치 위치
+- Instrinsic Parameter : 앞서 구한 Instarixsic Parameter txt 파일 로드 (Load하지 않을 시 VFe34차량 내부파라미터)
+- Chessboard Cell Size : Chessboard Cell하나의 크기
+- Chessboard Point Size : Chessboard의 가로, 세로 사이즈
+- Chessboard Distance : 카메라와 Chessboard사이의 거리
+- CameraNumber : Input Camera의 번호
+
+![Parameter_Input](/media/server/WORK/sh_git/TempProject/ReadMe_image/Parameter_Input.png)
+
+
+
+#### 4.3.2 CaptureImg
+
+INPUT
+
+- Capture_1 : ParameterInput --> Chessboard Distance에 첫번째로 입력된 거리에서의 Chessboard
+- Capture_2 : ParameterInput --> Chessboard Distance에 두번째로 입력된 거리에서의 Chessboard
+- Clear : Capture Image 초기화
+
+OUTPUT
+
+- Roll : Capture당시의 Roll
+- Tilt : Capture_1과 Capture_2사이의 물리적거리와 도형의 닮은비를 이용한 Tilt 계산값
+
+![CapturImage](/media/server/WORK/sh_git/TempProject/ReadMe_image/CapturImage.png)
+
+
+
+#### 4.3.3 CameraPoseEstimation
+
+OUTPUT
+
+- Detedcted Point Image : Chessboard corner Detection, Image Center, Principal Point, Chessboard Center 표시
+- Reprojection Point Image : Z가 0이고 Y가 증가 할때 발생하는 Point
+- Rotation Matirx
+- Translation Matrix
+- Reprojection Error
+- Camera Position :  World좌표에서의 Camera의 위치의 바닥부분을 [0,0,0]으로 지정 하였음. 이상적인 값으로는 Z값만 나오는게 맞음. 아래 값들은 예시 사진으로 다를 수 있음.
+- Camera Pose
+  - Tilt : 카메라가 아래를 바라보고있을 시 -, 위쪽을 바라보고 있을 시 +
+  - Pan : 카메라가 오른쪽을 바라보고 있을 시 -, 왼쪽을 바라보고 있을 시 +
+  - Roll : 후면에바라봤을 때 카메라가 오른쪽로 돌아 갔을 시 -, 왼쪽으로 돌아 갔을 시 +
+- Export : 외부 파라미터 txt파일로 출력
+
+![CameraPoseEstimation](/media/server/WORK/sh_git/TempProject/ReadMe_image/CameraPoseEstimation.png)
