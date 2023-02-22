@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -isystem /usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/media/server/WORK/sh_git/TempProject/build\MOCFiles -Iui -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -isystem /usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/media/server/WORK/sh_github/TempProject/build\MOCFiles -Iui -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/server/Qt5.7.0/5.7/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = e_calibration1.0.0
-DISTDIR = /media/server/WORK/sh_git/TempProject/build/ObjFiles/e_calibration1.0.0
+DISTDIR = /media/server/WORK/sh_github/TempProject/build/ObjFiles/e_calibration1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/server/Qt5.7.0/5.7/gcc_64/lib -Wl,-rpath-link,/home/server/Qt5.7.0/5.7/gcc_64/lib
 LIBS          = $(SUBLIBS) -L/usr/local/lib/ -lopencv_gapi -lopencv_stitching -lopencv_alphamat -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -lopencv_ccalib -lopencv_dnn_objdetect -lopencv_dnn_superres -lopencv_dpm -lopencv_highgui -lopencv_face -lopencv_freetype -lopencv_fuzzy -lopencv_hfs -lopencv_img_hash -lopencv_intensity_transform -lopencv_line_descriptor -lopencv_quality -lopencv_rapid -lopencv_reg -lopencv_rgbd -lopencv_saliency -lopencv_stereo -lopencv_structured_light -lopencv_phase_unwrapping -lopencv_superres -lopencv_optflow -lopencv_surface_matching -lopencv_tracking -lopencv_datasets -lopencv_text -lopencv_dnn -lopencv_plot -lopencv_videostab -lopencv_videoio -lopencv_xfeatures2d -lopencv_shape -lopencv_ml -lopencv_ximgproc -lopencv_video -lopencv_xobjdetect -lopencv_objdetect -lopencv_calib3d -lopencv_imgcodecs -lopencv_features2d -lopencv_flann -lopencv_xphoto -lopencv_photo -lopencv_imgproc -lopencv_core -L/home/server/Qt5.7.0/5.7/gcc_64/lib -lQt5MultimediaWidgets -L/usr/lib64 -lQt5Multimedia -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
@@ -610,8 +610,8 @@ build/RCCFiles/qrc_resource.cpp: resource.qrc \
 		image/CameraInstallPositionDescriptionImage.png \
 		image/crop_Chess.png \
 		image/Logo.png \
-		image/inCalImg.png \
-		image/3m_sample_image.png
+		image/3m_sample_image.jpg \
+		image/inCalImg.png
 	/home/server/Qt5.7.0/5.7/gcc_64/bin/rcc -name resource resource.qrc -o build/RCCFiles/qrc_resource.cpp
 
 compiler_moc_header_make_all: build/MOCFiles/moc_mainwindow.cpp build/MOCFiles/moc_cameraposeestimation.cpp build/MOCFiles/moc_parameterinput.cpp build/MOCFiles/moc_captureimg.cpp build/MOCFiles/moc_intrinsic_param.cpp
@@ -740,7 +740,7 @@ build/MOCFiles/moc_mainwindow.cpp: /home/server/Qt5.7.0/5.7/gcc_64/include/QtWid
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
 		code/mainwindow.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/bin/moc
-	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_git/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include code/mainwindow.h -o build/MOCFiles/moc_mainwindow.cpp
+	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_github/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include code/mainwindow.h -o build/MOCFiles/moc_mainwindow.cpp
 
 build/MOCFiles/moc_cameraposeestimation.cpp: /home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -844,7 +844,7 @@ build/MOCFiles/moc_cameraposeestimation.cpp: /home/server/Qt5.7.0/5.7/gcc_64/inc
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
 		code/cameraposeestimation.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/bin/moc
-	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_git/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include code/cameraposeestimation.h -o build/MOCFiles/moc_cameraposeestimation.cpp
+	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_github/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include code/cameraposeestimation.h -o build/MOCFiles/moc_cameraposeestimation.cpp
 
 build/MOCFiles/moc_parameterinput.cpp: code/captureimg.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
@@ -961,7 +961,7 @@ build/MOCFiles/moc_parameterinput.cpp: code/captureimg.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore/qfileinfo.h \
 		code/parameterinput.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/bin/moc
-	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_git/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include code/parameterinput.h -o build/MOCFiles/moc_parameterinput.cpp
+	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_github/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include code/parameterinput.h -o build/MOCFiles/moc_parameterinput.cpp
 
 build/MOCFiles/moc_captureimg.cpp: /home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -1070,7 +1070,7 @@ build/MOCFiles/moc_captureimg.cpp: /home/server/Qt5.7.0/5.7/gcc_64/include/QtWid
 		code/cameraposeestimation.h \
 		code/captureimg.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/bin/moc
-	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_git/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include code/captureimg.h -o build/MOCFiles/moc_captureimg.cpp
+	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_github/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include code/captureimg.h -o build/MOCFiles/moc_captureimg.cpp
 
 build/MOCFiles/moc_intrinsic_param.cpp: /home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialog.h \
@@ -1179,7 +1179,7 @@ build/MOCFiles/moc_intrinsic_param.cpp: /home/server/Qt5.7.0/5.7/gcc_64/include/
 		/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmessagebox.h \
 		code/intrinsic_param.h \
 		/home/server/Qt5.7.0/5.7/gcc_64/bin/moc
-	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_git/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include code/intrinsic_param.h -o build/MOCFiles/moc_intrinsic_param.cpp
+	/home/server/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/server/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/media/server/WORK/sh_github/TempProject -I/usr/local/include/opencv4 -I/home/server/Qt5.7.0/5.7/gcc_64/include -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimediaWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtMultimedia -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtNetwork -I/home/server/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include code/intrinsic_param.h -o build/MOCFiles/moc_intrinsic_param.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:

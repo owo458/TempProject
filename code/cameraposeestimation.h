@@ -52,9 +52,10 @@ private:
         if(*foundchessboard == true)
         {
             cv::TermCriteria criteria(TermCriteria::EPS + TermCriteria::COUNT,100,0.001);
-
+            int win_size = int((allCorner_pts[2].x - allCorner_pts[1].x)/2);
+            cout << "win_size:" << win_size << endl;
             // findChessboardCorners에서 찾은 allCorner_pts에 저장된 픽셀들이 가리키는 위치를 더 정확하게 보정해주는 함수
-            cv::cornerSubPix(grayImg, allCorner_pts, cv::Size(11, 11), cv::Size(-1, -1), criteria);
+            cv::cornerSubPix(grayImg, allCorner_pts, cv::Size(win_size, win_size), cv::Size(-1, -1), criteria);
 
             vector<float> AllcellSize;
 
@@ -83,6 +84,7 @@ private:
                 cnt += AllcellSize[i];
             }
             *avgCellPixelSize = cnt / AllcellSize.size();
+            cout << "avgCellPixelSize                     : "<< *avgCellPixelSize << "[pixel]\n";
             circle(InputImg, Point(InputImg.cols / 2, InputImg.rows / 2), 1, Scalar(0, 0, 255), 5);
             putText(InputImg, "ImageCenter", Point((InputImg.cols / 2) +10, (InputImg.rows / 2) + 20), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255), 2);
 
