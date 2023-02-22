@@ -75,8 +75,9 @@ void intrinsic_param::on_textEdit_ChessHorizontal_textChanged()
         m_startCheck[2]=1;
         //m_chess_horizontal= chess_horizontal.split(" ")[0].toInt();
     }
-    else
+    else{
         m_startCheck[2]=0;
+    }
 }
 
 void intrinsic_param::on_textEdit_ChessVertical_textChanged()
@@ -87,8 +88,9 @@ void intrinsic_param::on_textEdit_ChessVertical_textChanged()
     if(chess_vertical.length() > 0 && m_chess_pattern[1] > 5  && m_chess_pattern[1] < 15){
         m_startCheck[3]=1;
     }
-    else
+    else{
         m_startCheck[3]=0;
+    }
 }
 
 void intrinsic_param::on_textEdit_FPS_textChanged()
@@ -100,8 +102,9 @@ void intrinsic_param::on_textEdit_FPS_textChanged()
         m_fps = fps_temp;
         m_startCheck[4]=1;
     }
-    else
+    else{
         m_startCheck[4]=0;
+    }
 }
 
 void intrinsic_param::on_pushButton_Start_clicked()
@@ -116,40 +119,51 @@ void intrinsic_param::on_pushButton_Start_clicked()
     //int saveTxtProcess = 0;
     int processChecker = 0;
     double totalAvgErr = 1.0;
+    int roop = 1;
 
     intrinsic_param_calculate inParamCal = intrinsic_param_calculate();
     ui->progressBar_calProcess->setValue(10);
     //ui->progressBar_calProcess->setAlignment(Qt.AlignCenter);
 
-    if(m_startCheck[0] + m_startCheck[1] + m_startCheck[2] + m_startCheck[3] + m_startCheck[4] == 5){
-        processChecker= inParamCal.video2Mat(m_path[0].toStdString(), m_fps);
-        ui->progressBar_calProcess->setValue(30);
 
-        processChecker = inParamCal.interCameraCalibration(m_chess_pattern);
-        ui->progressBar_calProcess->setValue(60);
+    while(roop > 0){
+        if(m_startCheck[0] + m_startCheck[1] + m_startCheck[2] + m_startCheck[3] + m_startCheck[4] == 5){
+            processChecker= inParamCal.video2Mat(m_path[0].toStdString(), m_fps);
+            ui->progressBar_calProcess->setValue(30);
 
-        processChecker = inParamCal.autoCalibration(totalAvgErr);
-        ui->textBrowser_ReprojectionError->setText(QString::number(totalAvgErr));
-        ui->progressBar_calProcess->setValue(80);
+            processChecker = inParamCal.interCameraCalibration(m_chess_pattern);
+            if(processChecker == -1){
+                QMessageBox mbox;
+                mbox.critical(this,"Chess Pattern Error"," findChessboardCorners = 0 ", mbox.Yes);
+                roop = -1;
+                continue;
+            }
+            ui->progressBar_calProcess->setValue(60);
 
-        processChecker = inParamCal.principalPointError();
-        if(processChecker == -1){
-            std::cout<<"principalPointError"<<std::endl;
-            ui->textBrowser_PrincipaPointError->setText("Error");
-        }else{
-            ui->textBrowser_PrincipaPointError->setText("PASS");
+            processChecker = inParamCal.autoCalibration(totalAvgErr);
+            ui->textBrowser_ReprojectionError->setText(QString::number(totalAvgErr));
+            ui->progressBar_calProcess->setValue(80);
+
+            processChecker = inParamCal.principalPointError();
+            if(processChecker == -1){
+                std::cout<<"principalPointError"<<std::endl;
+                ui->textBrowser_PrincipaPointError->setText("Error");
+            }else{
+                ui->textBrowser_PrincipaPointError->setText("PASS");
+            }
+            processChecker = inParamCal.saveResultsImg(m_path[1].toStdString());
+            processChecker = inParamCal.reprojectionPattern(m_path[1].toStdString());
+            ui->progressBar_calProcess->setValue(90);
+
+            processChecker = inParamCal.saveResultsTxt(m_path[1].toStdString());
+            processChecker = inParamCal.undistortTest(m_path[1].toStdString());
+            ui->progressBar_calProcess->setValue(100);
         }
-        processChecker = inParamCal.saveResultsImg(m_path[1].toStdString());
-        processChecker = inParamCal.reprojectionPattern(m_path[1].toStdString());
-        ui->progressBar_calProcess->setValue(90);
-
-        processChecker = inParamCal.saveResultsTxt(m_path[1].toStdString());
-        processChecker = inParamCal.undistortTest(m_path[1].toStdString());
-        ui->progressBar_calProcess->setValue(100);
-    }
-    else{
-        QMessageBox mbox;
-        mbox.critical(this,"Input Error"," File Path, Chess Pattern, FPS check !!!! ", mbox.Yes);
+        else{
+            QMessageBox mbox;
+            mbox.critical(this,"Input Error"," File Path, Chess Pattern, FPS check !!!! ", mbox.Yes);
+        }
+        roop = -1;
     }
 }
 

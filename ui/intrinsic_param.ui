@@ -22,6 +22,9 @@
      <height>30</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="text">
     <string>load</string>
    </property>
@@ -34,6 +37,9 @@
      <width>80</width>
      <height>30</height>
     </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="text">
     <string>exit</string>
@@ -58,6 +64,15 @@
     </item>
     <item row="0" column="1">
      <widget class="QTextBrowser" name="textBrowser_VideoPath">
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="autoFormatting">
+       <set>QTextEdit::AutoNone</set>
+      </property>
+      <property name="tabChangesFocus">
+       <bool>true</bool>
+      </property>
       <property name="tabStopWidth">
        <number>80</number>
       </property>
@@ -71,7 +86,14 @@
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QTextBrowser" name="textBrowser_SavePath"/>
+     <widget class="QTextBrowser" name="textBrowser_SavePath">
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="tabChangesFocus">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="label_ChessBoard">
@@ -84,6 +106,9 @@
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
        <widget class="QTextEdit" name="textEdit_ChessHorizontal">
+        <property name="tabChangesFocus">
+         <bool>true</bool>
+        </property>
         <property name="placeholderText">
          <string notr="true">9</string>
         </property>
@@ -91,6 +116,9 @@
       </item>
       <item>
        <widget class="QTextEdit" name="textEdit_ChessVertical">
+        <property name="tabChangesFocus">
+         <bool>true</bool>
+        </property>
         <property name="placeholderText">
          <string notr="true">10</string>
         </property>
@@ -107,6 +135,9 @@
     </item>
     <item row="3" column="1">
      <widget class="QTextEdit" name="textEdit_FPS">
+      <property name="tabChangesFocus">
+       <bool>true</bool>
+      </property>
       <property name="placeholderText">
        <string notr="true">3</string>
       </property>
@@ -131,6 +162,12 @@
     </item>
     <item row="6" column="1">
      <widget class="QTextBrowser" name="textBrowser_PrincipaPointError">
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="tabChangesFocus">
+       <bool>true</bool>
+      </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -149,6 +186,12 @@ p, li { white-space: pre-wrap; }
     </item>
     <item row="7" column="1">
      <widget class="QTextBrowser" name="textBrowser_ReprojectionError">
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="tabChangesFocus">
+       <bool>true</bool>
+      </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -169,6 +212,9 @@ p, li { white-space: pre-wrap; }
      <height>30</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="text">
     <string>select</string>
    </property>
@@ -181,6 +227,9 @@ p, li { white-space: pre-wrap; }
      <width>80</width>
      <height>101</height>
     </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="text">
     <string>start</string>
@@ -200,6 +249,19 @@ p, li { white-space: pre-wrap; }
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>textEdit_ChessHorizontal</tabstop>
+  <tabstop>textEdit_ChessVertical</tabstop>
+  <tabstop>textEdit_FPS</tabstop>
+  <tabstop>textBrowser_PrincipaPointError</tabstop>
+  <tabstop>textBrowser_ReprojectionError</tabstop>
+  <tabstop>pushButton_VideoLoad</tabstop>
+  <tabstop>pushButton_exit</tabstop>
+  <tabstop>textBrowser_VideoPath</tabstop>
+  <tabstop>textBrowser_SavePath</tabstop>
+  <tabstop>pushButton_SavePath</tabstop>
+  <tabstop>pushButton_Start</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

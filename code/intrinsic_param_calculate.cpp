@@ -76,6 +76,9 @@ int intrinsic_param_calculate::interCameraCalibration(int* chess_pattern)
       i--;
     }
   }
+  if(m_objpoints.size()<5){
+      return -1;
+  }
   cv::destroyAllWindows();
   std::cout << "interCameraCalibration end!" << std::endl;
   return 1;
